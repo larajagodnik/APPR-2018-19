@@ -13,7 +13,7 @@ V svojem projektu bom analizirala podatke iz svetovnih prvenstev v atletiki od l
 Najprej bom naredila analizo uspešnosti držav glede na število zlatih, srebrnih in bronastih medalj. Pri tem bom upoštevala število prebivalcev v posameznem letu za države. Tabele s podatki o svetovnih prvenstvih in medaljah po državah, v HTML obliki, sem našla na [Wikipediji](https://sl.wikipedia.org/wiki/Svetovno_prvenstvo_v_atletiki), podatke o številu prebivalcev, v CSV obliki, pa na spletni strani [DataBank](http://databank.worldbank.org/data/reports.aspx?source=2&series=SP.POP.TOTL&country=#).
 
 V prvi tabeli bodo za 101 državo iz vseh svetovnih prvenstev zbrani podatki o zlatih, srebrnih in bronastih medaljah skupaj ter mesto na katerega se država uvršča po svoji uspešnosti. Pri tem ima zlata medalja največjo vrednost in bronasta najmanjšo.
-V dodatni tabeli pa bodo podatki o številu prebivalcev posamezne države v letih, ko je bilo svetovno prvenstvo in 
+V dodatni tabeli pa bodo podatki o številu prebivalcev posamezne države v letih, ko je bilo svetovno prvenstvo.
 Cilj te analize je ugotoviti, ali število prebivalcev vpliva na število medalj oziroma uspešnost posamezne države na svetovnem prvenstvu.
 
 V tretji tabeli bom združila bom podatke iz posameznih svetovnih prvenstev, ki sem jih našla na spletni strani [IAAF](https://www.iaaf.org/competitions/iaaf-world-championships/iaaf-world-championships-london-2017-5151/timetable/bydiscipline).
