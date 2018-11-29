@@ -16,7 +16,7 @@ V prvi tabeli bodo za 101 državo iz vseh svetovnih prvenstev zbrani podatki o z
 V dodatni tabeli pa bodo podatki o številu prebivalcev posamezne države v letih, ko je bilo svetovno prvenstvo.
 Cilj te analize je ugotoviti, ali število prebivalcev vpliva na število medalj oziroma uspešnost posamezne države na svetovnem prvenstvu.
 
-V tretji tabeli bom združila bom podatke iz posameznih svetovnih prvenstev, ki sem jih našla na spletni strani [IAAF](https://www.iaaf.org/competitions/iaaf-world-championships/iaaf-world-championships-london-2017-5151/timetable/bydiscipline).
+V tretji tabeli bom združila bom podatke iz posameznih svetovnih prvenstev, ki sem jih našla na spletni strani [IAAF](https://www.iaaf.org/competitions/iaaf-world-championships/iaaf-world-championships-london-2017-5151/timetable/bydiscipline) in [Wikipediji](https://sl.wikipedia.org/wiki/Svetovno_prvenstvo_v_atletiki_2017).
 V tabeli bodo zbrani naslednji podatki: leto prvenstva, disciplina in narodnost, rezultat ter reakcijski čas (pri šprinterskih disciplinah) prvih treh uvrščenih.
 Zanimalo me bo, kako so se rezultati spreminjali skozi čas. Posebej si bom pri šprinterskih disciplinah pogledala, ali so se rezultati podobno spreminjali in kakšne so razlike med reakcijskimi časi med disciplinami in po spolu.
 
