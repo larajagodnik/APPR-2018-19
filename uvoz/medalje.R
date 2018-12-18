@@ -1,21 +1,31 @@
+# 2. faza: Uvoz podatkov
+
 
 #sl <- locale("sl", decimal_mark=",", grouping_mark=".")
 
-# Funkcija, ki uvozi rezultate iz finala svetovnih prvenstevod leta 2005 naprej za discipline 100 m , 200 m
-# in 400 m za moške in ženske
-
-uvozi.rezultati_100 <- function() {
-  link <- "https://www.iaaf.org/competitions/iaaf-world-championships/iaaf-world-championships-london-2017-5151/results/men/100-metres/final/result"
+# Funkcija, ki uvozi podatke o medaljah iz Wikipedije
+uvozi.medalje <- function() {
+  link <- "https://en.wikipedia.org/wiki/IAAF_World_Championships_in_Athletics"
   stran <- html_session(link) %>% read_html()
-  tabela <- stran %>% html_nodes(xpath="//table[@class='records-table clickable']") %>%
-    .[[1]] %>% html_table(dec=",")
+  tabela <- stran %>% html_nodes(xpath="//table[@class='wikitable sortable plainrowheaders jquery-tablesorter']") %>%
+    .[[1]] %>% html_table(fill= TRUE)
   for (i in 1:ncol(tabela)) {
     if (is.character(tabela[[i]])) {
       Encoding(tabela[[i]]) <- "UTF-8"
     }
   }
-#   colnames(tabela) <- c("obcina", "povrsina", "prebivalci", "gostota", "naselja",
-#                         "ustanovitev", "pokrajina", "regija", "odcepitev")
+   colnames(tabela) <- c("pozicija", "država", "zlato", "srebro", "bron", "skupaj")
+   tabela <- tabela[-c(54,103),] #izbris vrstice s podatki o neodvisnih šprtnikih (Rusija) in zadnje
+   tabela$država <- gsub(".{6}$", "", tabela$država)
+   tabela$država <- gsub("Great Britain & N.I.", "United Kingdom", tabela$država)
+   tabela$država <- gsub("Russia", "Russian Federation", tabela$država)
+   tabela$država <- gsub("Slovakia", "Slovak Republic", tabela$država)
+   tabela$država <- gsub("Syria", "Syrian Arab Republic", tabela$država)
+   tabela$država <- gsub("Ivory Coast", "Cote d'Ivoire", tabela$država)
+   tabela$država <- gsub("Venezuela", "Venezuela, RB", tabela$država)
+   tabela$država <- gsub("Saint Kitts and Nevis", "St. Kitts and Nevis", tabela$država)
+   tabela$država <- gsub("Ivory Coast", "Cote d'Ivoire", tabela$država)
+   
 #   tabela$obcina <- gsub("Slovenskih", "Slov.", tabela$obcina)
 #   tabela$obcina[tabela$obcina == "Kanal ob Soči"] <- "Kanal"
 #   tabela$obcina[tabela$obcina == "Loški potok"] <- "Loški Potok"
@@ -27,7 +37,22 @@ uvozi.rezultati_100 <- function() {
 #   }
   return(tabela)
 }
-# 
+
+# preverim imena katerih držav se razlikujejo
+medalje.drzave <- uvozi.medalje()$država
+populacija.drzave <- uvozi.populacija$država
+imena_drzav <- medalje.drzave %in% populacija.drzave
+
+#zdruzena tabela uvozi.medalje in uvozi.populacija
+zdruzena <- uvozi.medalje() %>% inner_join(uvozi.populacija, c("država"= "država"))
+
+# podatki v stolpcu povprečno_št_prebivalcev so tipa character, spremenjeno v numeric
+zdruzena$povprečno_št_prebivalcev <- as.numeric(zdruzena$povprečno_št_prebivalcev)
+
+
+
+
+ 
 # # Funkcija, ki uvozi podatke iz datoteke druzine.csv
 # uvozi.druzine <- function(obcine) {
 #   data <- read_csv2("podatki/druzine.csv", col_names=c("obcina", 1:4),
