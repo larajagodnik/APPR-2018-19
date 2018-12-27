@@ -1,5 +1,5 @@
 # Uvoz populacije
-uvozi.populacija <- read_csv("podatki_databank/populacija.csv",
+uvozi.populacija <- read.csv2("podatki_databank/populacija.csv",
                              locale = locale(encoding = "UTF-8"),
                              col_names = TRUE,
                              n_max = 258,
