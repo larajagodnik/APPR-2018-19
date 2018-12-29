@@ -2,8 +2,7 @@
 # M - moški, Z - zenske
 # 
 
-uvozi.rezultatiM2005 <- function() {
-  link <- "https://sl.wikipedia.org/wiki/Svetovno_prvenstvo_v_atletiki_2005"
+uvozi.rezultati1 <- function(link, leto) {
   stran <- html_session(link) %>% read_html()
   tabela <- stran %>% html_nodes(xpath="//table[@class='wikitable']") %>%
     .[[1]] %>% html_table(dec=",")
@@ -15,12 +14,16 @@ uvozi.rezultatiM2005 <- function() {
   return(tabela)
 }
 
+rezultati.moski <- lapply(1, function(i) uvozi.rezultati1(paste0("https://en.wikipedia.org/wiki/", "2007_", "World_Championships_in_Athletics"), 2019-2*i)) 
+
+
+
 
 uvozi.rezultatiZ2005 <- function() {
-  link <- "https://sl.wikipedia.org/wiki/Svetovno_prvenstvo_v_atletiki_2005"
+  link <- "https://en.wikipedia.org/wiki/2007_World_Championships_in_Athletics"
   stran <- html_session(link) %>% read_html()
-  tabela <- stran %>% html_nodes(xpath="//table[@class='wikitable']") %>%
-    .[[3]] %>% html_table(dec=",")
+  tabela <- stran %>% html_nodes(xpath="//table[@class='wikitable plainrowheaders']") %>%
+    .[[1]] %>% html_table(fill=TRUE)
   for (i in 1:ncol(tabela)) {
     if (is.character(tabela[[i]])) {
       Encoding(tabela[[i]]) <- "UTF-8"

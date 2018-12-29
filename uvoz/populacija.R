@@ -18,16 +18,22 @@ uvozi.populacija$država <- gsub("Korea, Rep.", "South Korea", uvozi.populacija$
 uvozi.populacija$država <- gsub("Egypt, Arab Rep.", "Egypt", uvozi.populacija$država)
 uvozi.populacija$država <- gsub("Iran, Islamic Rep.", "Iran", uvozi.populacija$država)
 
+# tabela v obliki tidy data
+populacija <- melt(uvozi.populacija, value.name = "država", na.rm = FALSE)
+
+
+## daj v Analizo!
+#
 # dodan stolpec s povprečnim številom prebivalcev v tisočih
-skupaj_st_preb <- rowSums(uvozi.populacija[,-1], na.rm = TRUE)
-uvozi.populacija$povprečno_št_prebivalcev <- format(round(skupaj_st_preb/((16-rowSums(is.na(uvozi.populacija))))/1000,3), scientific = FALSE)
-uvozi.populacija <- uvozi.populacija[,-c(2:17)]
+# skupaj_st_preb <- rowSums(uvozi.populacija[,-1], na.rm = TRUE)
+# uvozi.populacija$povprečno_št_prebivalcev <- format(round(skupaj_st_preb/((16-rowSums(is.na(uvozi.populacija))))/1000,3), scientific = FALSE)
+# uvozi.populacija <- uvozi.populacija[,-c(2:17)]
 
 # države, za katere ni podatkov sem našla povprečno št. prebivalcev na wikipediji
 # Czechoslovakia: 15600000, Soviet Union: 293000000, West Germany: 63254000, East Germany: 16111000
 
 # dodane vrstice z državami, ki jih prej ni bilo
-uvozi.populacija <- rbind(uvozi.populacija, c("Czechoslovakia", "15600.000"))
-uvozi.populacija <- rbind(uvozi.populacija, c("Soviet Union", "293000.000"))
-uvozi.populacija <- rbind(uvozi.populacija, c("West Germany", "63254.000"))
-uvozi.populacija <- rbind(uvozi.populacija, c("East Germany", "16111.000"))
+# uvozi.populacija <- rbind(uvozi.populacija, c("Czechoslovakia", "15600.000"))
+# uvozi.populacija <- rbind(uvozi.populacija, c("Soviet Union", "293000.000"))
+# uvozi.populacija <- rbind(uvozi.populacija, c("West Germany", "63254.000"))
+# uvozi.populacija <- rbind(uvozi.populacija, c("East Germany", "16111.000"))
