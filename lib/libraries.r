@@ -10,7 +10,7 @@ library(readr)
 library(dplyr)
 library(gsubfn)
 library(ggplot2)
-
+library(tidyr)
 
 
 # Uvozimo funkcije za pobiranje in uvoz zemljevida.
