@@ -12,11 +12,15 @@ uvozi.populacija <- uvozi.populacija %>% select(3, 28, 32, 36, 38, 40, 42, 44, 4
 stolpci <- c("država", "1983", "1987", "1991", "1993", "1995", "1997", "1999", "2001",
              "2003", "2005", "2007", "2009", "2011", "2013", "2015", "2017")
 colnames(uvozi.populacija) <- stolpci
-uvozi.populacija$država <- gsub("Bahamas, The", "Bahamas", uvozi.populacija$država)
+uvozi.populacija$država <- gsub("Bahamas, The", "The Bahamas", uvozi.populacija$država)
 uvozi.populacija$država <- gsub("Korea, Dem. People’s Rep.", "North Korea", uvozi.populacija$država)
 uvozi.populacija$država <- gsub("Korea, Rep.", "South Korea", uvozi.populacija$država)
 uvozi.populacija$država <- gsub("Egypt, Arab Rep.", "Egypt", uvozi.populacija$država)
 uvozi.populacija$država <- gsub("Iran, Islamic Rep.", "Iran", uvozi.populacija$država)
+uvozi.populacija$država <- gsub("Cote d'Ivoire", "Ivory Coast", uvozi.populacija$država)
+uvozi.populacija$država <- gsub("Czech Republic", "Czechia", uvozi.populacija$država)
+uvozi.populacija$država <- gsub("Serbia", "Republic of Serbia", uvozi.populacija$država)
+uvozi.populacija$država <- gsub("Slovak Republic", "Slovakia", uvozi.populacija$država)
 
 # tabela v obliki tidy data
 # drzava in povprecno stevilo prebivalcev v tisocih

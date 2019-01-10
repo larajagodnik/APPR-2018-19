@@ -17,14 +17,17 @@ uvozi.medalje <- function() {
    colnames(tabela) <- c("država", "zlato", "srebro", "bron")
    tabela <- tabela[-c(54,103),] #izbris vrstice s podatki o neodvisnih šprtnikih (Rusija) in zadnje
    tabela$država <- gsub(".{6}$", "", tabela$država)
+   tabela$država <- gsub("American Samoa", "Samoa", tabela$država)
+   tabela$država <- gsub("Bahamas", "The Bahamas", tabela$država)
    tabela$država <- gsub("Great Britain & N.I.", "United Kingdom", tabela$država)
    tabela$država <- gsub("Russia", "Russian Federation", tabela$država)
-   tabela$država <- gsub("Slovakia", "Slovak Republic", tabela$država)
    tabela$država <- gsub("Syria", "Syrian Arab Republic", tabela$država)
    tabela$država <- gsub("Ivory Coast", "Cote d'Ivoire", tabela$država)
    tabela$država <- gsub("Venezuela", "Venezuela, RB", tabela$država)
    tabela$država <- gsub("Saint Kitts and Nevis", "St. Kitts and Nevis", tabela$država)
-   tabela$država <- gsub("Ivory Coast", "Cote d'Ivoire", tabela$država)
+   tabela$država <- gsub("Cote d'Ivoire", "Ivory Coast", tabela$država)
+   tabela$država <- gsub("Czech Republic", "Czechia", tabela$država)
+   tabela$država <- gsub("Serbia", "Republic of Serbia", tabela$država)
    
 #   tabela$obcina <- gsub("Slovenskih", "Slov.", tabela$obcina)
 #   tabela$obcina[tabela$obcina == "Kanal ob Soči"] <- "Kanal"
@@ -45,11 +48,11 @@ uvozi.medalje <- function() {
 
 medalje <- uvozi.medalje() %>% gather(lesk, število, -država)
 
-## pod analizo !
+
 # preverim imena katerih držav se razlikujejo
-medalje.drzave <- uvozi.medalje()$država
-populacija.drzave <- uvozi.populacija$država
-imena_drzav <- medalje.drzave %in% populacija.drzave
+#medalje.drzave <- uvozi.medalje()$država
+#populacija.drzave <- uvozi.populacija$država
+#imena_drzav <- medalje.drzave %in% populacija.drzave
 
 #zdruzena tabela uvozi.medalje in uvozi.populacija
 #zdruzena <- uvozi.medalje() %>% inner_join(uvozi.populacija, c("država"= "država"))

@@ -4,10 +4,10 @@
 # in 400 m za moške in ženske
 # od leta 1999 kej je bilo takrat uvedeno merjenje reakcijskega časa
 
-uvozi.rezultati <- function(link, leto) {
+uvozi.rezultati <- function(link, leto, disciplina) {
   stran <- html_session(link) %>% read_html()
   tabela <- stran %>% html_nodes(xpath="//table[@class='records-table clickable']") %>%
-    .[[1]] %>% html_table(dec=".") %>% mutate(MARK=parse_number(as.character(MARK)), leto=leto)
+    .[[1]] %>% html_table(dec=".") %>% mutate(MARK=parse_number(as.character(MARK)), leto=leto, disciplina=disciplina)
   for (j in 1:ncol(tabela)) {
     if (is.character(tabela[[j]])) {
       Encoding(tabela[[j]]) <- "UTF-8"
@@ -23,7 +23,7 @@ povezave <- html_session(link) %>% html_nodes(xpath="//ul[@class='dropdown-menu'
   strapplyc("^(.*)/timetable/bydiscipline") %>% unlist()
 moski.100m <- lapply(2:11, function(i) uvozi.rezultati(paste0("https://www.iaaf.org", povezave[i],
                                                                  "/results/men/100-metres/final/result"),
-                                                          2021 - 2*i)) %>% bind_rows() %>% select(-BIB)
+                                                          2021 - 2*i, "100 m")) %>% bind_rows() %>% select(-BIB)
 
 
 # ženske 100 m
@@ -32,7 +32,7 @@ povezave <- html_session(link) %>% html_nodes(xpath="//ul[@class='dropdown-menu'
   strapplyc("^(.*)/timetable/bydiscipline") %>% unlist()
 zenske.100m <- lapply(2:11, function(i) uvozi.rezultati(paste0("https://www.iaaf.org", povezave[i],
                                                                   "/results/women/100-metres/final/result"),
-                                                           2021 - 2*i)) %>% bind_rows() %>% select(c(-BIB, -6))
+                                                           2021 - 2*i, "100 m")) %>% bind_rows() %>% select(c(-BIB, -6))
 
 
 # moški 200 m
@@ -41,7 +41,7 @@ povezave <- html_session(link) %>% html_nodes(xpath="//ul[@class='dropdown-menu'
   strapplyc("^(.*)/timetable/bydiscipline") %>% unlist()
 moski.200m <- lapply(2:11, function(i) uvozi.rezultati(paste0("https://www.iaaf.org", povezave[i],
                                                                   "/results/men/200-metres/final/result"),
-                                                           2021 - 2*i)) %>% bind_rows() %>% select(c(-BIB, -6))
+                                                           2021 - 2*i, "200 m")) %>% bind_rows() %>% select(c(-BIB, -6))
 
 
 # ženske 200 m
@@ -50,7 +50,7 @@ povezave <- html_session(link) %>% html_nodes(xpath="//ul[@class='dropdown-menu'
   strapplyc("^(.*)/timetable/bydiscipline") %>% unlist()
 zenske.200m <- lapply(2:11, function(i) uvozi.rezultati(paste0("https://www.iaaf.org", povezave[i],
                                                                   "/results/women/200-metres/final/result"),
-                                                           2021 - 2*i)) %>% bind_rows() %>% select(-BIB)
+                                                           2021 - 2*i, "200 m")) %>% bind_rows() %>% select(-BIB)
 
 # moški 400 m
 link <- "https://www.iaaf.org/competitions/iaaf-world-championships/iaaf-world-championships-london-2017-5151/timetable/bydiscipline/men/400-metres"
@@ -58,7 +58,7 @@ povezave <- html_session(link) %>% html_nodes(xpath="//ul[@class='dropdown-menu'
   strapplyc("^(.*)/timetable/bydiscipline") %>% unlist()
 moski.400m <- lapply(2:11, function(i) uvozi.rezultati(paste0("https://www.iaaf.org", povezave[i],
                                                                   "/results/men/400-metres/final/result"),
-                                                           2021 - 2*i)) %>% bind_rows() %>% select(-BIB)
+                                                           2021 - 2*i, "400 m")) %>% bind_rows() %>% select(-BIB)
 
 
 # ženske 400 m
@@ -67,12 +67,14 @@ povezave <- html_session(link) %>% html_nodes(xpath="//ul[@class='dropdown-menu'
   strapplyc("^(.*)/timetable/bydiscipline") %>% unlist()
 zenske.400m <- lapply(2:11, function(i) uvozi.rezultati(paste0("https://www.iaaf.org", povezave[i],
                                                                   "/results/women/400-metres/final/result"),
-                                                           2021 - 2*i)) %>% bind_rows() %>% select(-BIB)
+                                                           2021 - 2*i, "400 m")) %>% bind_rows() %>% select(-BIB)
 # testna
-tabela1 <- uvozi.rezultati("https://www.iaaf.org/competitions/iaaf-world-championships/13th-iaaf-world-championships-in-athletics-4147/results/women/100-metres/final/result", 2017)
-tabela2 <- uvozi.rezultati("https://www.iaaf.org/competitions/iaaf-world-championships/iaaf-world-championships-london-2017-5151/results/men/100-metres/final/result", 2017)
+tabela1 <- uvozi.rezultati("https://www.iaaf.org/competitions/iaaf-world-championships/13th-iaaf-world-championships-in-athletics-4147/results/women/100-metres/final/result", 2017, "100 m")
+tabela2 <- uvozi.rezultati("https://www.iaaf.org/competitions/iaaf-world-championships/iaaf-world-championships-london-2017-5151/results/men/100-metres/final/result", 2017, "100 m")
 
-
+# zdruzene tabele za discipline
+zenske.sprint <- bind_rows(zenske.100m, zenske.200m, zenske.400m)
+moski.sprint <- bind_rows(moski.100m, moski.200m, moski.400m)
 
 # # Če bi imeli več funkcij za uvoz in nekaterih npr. še ne bi
 # # potrebovali v 3. fazi, bi bilo smiselno funkcije dati v svojo
