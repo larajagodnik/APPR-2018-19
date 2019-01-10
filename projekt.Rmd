@@ -26,8 +26,9 @@ source("lib/rstudio.r", encoding="UTF-8")
 
 # Izbira teme
 
-Analiza rezulttov iz svetovnih prvenstev v alteliki
+Prikazala bom podatke iz svetovnih prvenstev v atletiki.
 
+![](slike/IAAF.png)
 
 ***
 
@@ -37,8 +38,10 @@ Analiza rezulttov iz svetovnih prvenstev v alteliki
 source("uvoz/uvoz.r", encoding="UTF-8")
 ```
 
-Uvozili smo podatke o občinah v obliki CSV s statističnega urada ter v obliki HTML
-z Wikipedije. Podatke imamo v dveh razpredelnicah v obliki *tidy data*.
+Uvozila sem podatke o populaciji iz spletne strani DataBank v obliki CSV, podatke o številu medalj posameznih držav na vseh svetovnih prvenstvih skupaj in medaliste za svetovna prvenstva od 2005 do 2017 iz Wikipedije v HTML obliki. Prav tako sem v HTML obliki uvozila potdobnejše rezultate za šprinterske discipline iz spletne strani IAAF
+
+
+Podatki so v ?? razpredelnicah v obliki *tidy data*.
 
 1. `druzine` - podatki o družinah za vsako občino
   - `obcina` - spremenljivka: ime občine (neurejen faktor),

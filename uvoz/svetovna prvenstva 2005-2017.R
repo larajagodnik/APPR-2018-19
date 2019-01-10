@@ -1,193 +1,56 @@
-# tabele iz svetovnih prvenstev od 2005 do 2016 za tekaške discipline po moških in žeskah posebej
-# M - moški, Z - zenske
+# tabele iz svetovnih prvenstev od 2005 do 2017 za tekaške in tehnične discipline po moških in žeskah posebej
 # 
 
-uvozi.rezultatiM2005 <- function() {
-  link <- "https://sl.wikipedia.org/wiki/Svetovno_prvenstvo_v_atletiki_2005"
+#funkcija za uvoz tekaških disciplin
+uvozi.rezultati1 <- function(link, leto, t) {
   stran <- html_session(link) %>% read_html()
   tabela <- stran %>% html_nodes(xpath="//table[@class='wikitable']") %>%
-    .[[1]] %>% html_table(dec=",")
+    .[[t]] %>% html_table(dec=",", fill= TRUE) %>% mutate(leto=leto)
   for (i in 1:ncol(tabela)) {
     if (is.character(tabela[[i]])) {
       Encoding(tabela[[i]]) <- "UTF-8"
     }
   }
+  tabela <- tabela[-1,]
+  tabela <- head(tabela, -2)
   return(tabela)
 }
 
 
-uvozi.rezultatiZ2005 <- function() {
-  link <- "https://sl.wikipedia.org/wiki/Svetovno_prvenstvo_v_atletiki_2005"
+#funkcija za uvoz tehničnih disciplin
+uvozi.rezultati2 <- function(link, leto, t) {
   stran <- html_session(link) %>% read_html()
   tabela <- stran %>% html_nodes(xpath="//table[@class='wikitable']") %>%
-    .[[3]] %>% html_table(dec=",")
+    .[[t]] %>% html_table(dec=",", fill= TRUE) %>% mutate(leto=leto)
   for (i in 1:ncol(tabela)) {
     if (is.character(tabela[[i]])) {
       Encoding(tabela[[i]]) <- "UTF-8"
     }
   }
+  tabela <- tabela[-1,]
   return(tabela)
 }
 
+#
+leto <- as.character(seq(2017, 2005, -2))
+#
+rezultati.moski.tekaske <- lapply(1:7, function(i) uvozi.rezultati1(paste0("https://sl.wikipedia.org/wiki/Svetovno_prvenstvo_v_atletiki_",
+                                                                   leto[i]), 2019-2*i, t=1)) %>% bind_rows()
 
-uvozi.rezultatiM2007 <- function() {
-  link <- "https://sl.wikipedia.org/wiki/Svetovno_prvenstvo_v_atletiki_2007"
-  stran <- html_session(link) %>% read_html()
-  tabela <- stran %>% html_nodes(xpath="//table[@class='wikitable']") %>%
-    .[[3]] %>% html_table(dec=",")
-  for (i in 1:ncol(tabela)) {
-    if (is.character(tabela[[i]])) {
-      Encoding(tabela[[i]]) <- "UTF-8"
-    }
-  }
-  return(tabela)
-}
-
-uvozi.rezultatiZ2007 <- function() {
-  link <- "https://sl.wikipedia.org/wiki/Svetovno_prvenstvo_v_atletiki_2007"
-  stran <- html_session(link) %>% read_html()
-  tabela <- stran %>% html_nodes(xpath="//table[@class='wikitable']") %>%
-    .[[3]] %>% html_table(dec=",")
-  for (i in 1:ncol(tabela)) {
-    if (is.character(tabela[[i]])) {
-      Encoding(tabela[[i]]) <- "UTF-8"
-    }
-  }
-  return(tabela)
-}
+rezultati.moski.tehnicne <- lapply(1:7, function(i) uvozi.rezultati2(paste0("https://sl.wikipedia.org/wiki/Svetovno_prvenstvo_v_atletiki_",
+                                                                           leto[i]), 2019-2*i, t=2)) %>% bind_rows()
 
 
-uvozi.rezultatiM2009 <- function() {
-  link <- "https://sl.wikipedia.org/wiki/Svetovno_prvenstvo_v_atletiki_2009"
-  stran <- html_session(link) %>% read_html()
-  tabela <- stran %>% html_nodes(xpath="//table[@class='wikitable']") %>%
-    .[[3]] %>% html_table(dec=",")
-  for (i in 1:ncol(tabela)) {
-    if (is.character(tabela[[i]])) {
-      Encoding(tabela[[i]]) <- "UTF-8"
-    }
-  }
-  return(tabela)
-}
+rezultati.zenske.tekaske <- lapply(1:7, function(i) uvozi.rezultati1(paste0("https://sl.wikipedia.org/wiki/Svetovno_prvenstvo_v_atletiki_",
+                                                                           leto[i]), 2019-2*i, t=3)) %>% bind_rows()
+rezultati.zenske.tekaske <- rezultati.zenske.tekaske[-13,]  #dodatno odstranim podatke o hoji na 50kmza ženske - disciplina uvedena v 2017
 
-uvozi.rezultatiZ2009 <- function() {
-  link <- "https://sl.wikipedia.org/wiki/Svetovno_prvenstvo_v_atletiki_2009"
-  stran <- html_session(link) %>% read_html()
-  tabela <- stran %>% html_nodes(xpath="//table[@class='wikitable']") %>%
-    .[[3]] %>% html_table(dec=",")
-  for (i in 1:ncol(tabela)) {
-    if (is.character(tabela[[i]])) {
-      Encoding(tabela[[i]]) <- "UTF-8"
-    }
-  }
-  return(tabela)
-}
+rezultati.zenske.tehnicne <- lapply(1:7, function(i) uvozi.rezultati2(paste0("https://sl.wikipedia.org/wiki/Svetovno_prvenstvo_v_atletiki_",
+                                                                            leto[i]), 2019-2*i, t=4)) %>% bind_rows()
 
+#testna
+tabela3 <- uvozi.rezultati2("https://sl.wikipedia.org/wiki/Svetovno_prvenstvo_v_atletiki_2007", 2005, 2) 
 
-uvozi.rezultatiM2011 <- function() {
-  link <- "https://sl.wikipedia.org/wiki/Svetovno_prvenstvo_v_atletiki_2011"
-  stran <- html_session(link) %>% read_html()
-  tabela <- stran %>% html_nodes(xpath="//table[@class='wikitable']") %>%
-    .[[3]] %>% html_table(dec=",")
-  for (i in 1:ncol(tabela)) {
-    if (is.character(tabela[[i]])) {
-      Encoding(tabela[[i]]) <- "UTF-8"
-    }
-  }
-  return(tabela)
-}
-
-uvozi.rezultatiZ2011 <- function() {
-  link <- "https://sl.wikipedia.org/wiki/Svetovno_prvenstvo_v_atletiki_2011"
-  stran <- html_session(link) %>% read_html()
-  tabela <- stran %>% html_nodes(xpath="//table[@class='wikitable']") %>%
-    .[[3]] %>% html_table(dec=",")
-  for (i in 1:ncol(tabela)) {
-    if (is.character(tabela[[i]])) {
-      Encoding(tabela[[i]]) <- "UTF-8"
-    }
-  }
-  return(tabela)
-}
-
-
-uvozi.rezultatiM2013 <- function() {
-  link <- "https://sl.wikipedia.org/wiki/Svetovno_prvenstvo_v_atletiki_2013"
-  stran <- html_session(link) %>% read_html()
-  tabela <- stran %>% html_nodes(xpath="//table[@class='wikitable']") %>%
-    .[[3]] %>% html_table(dec=",")
-  for (i in 1:ncol(tabela)) {
-    if (is.character(tabela[[i]])) {
-      Encoding(tabela[[i]]) <- "UTF-8"
-    }
-  }
-  return(tabela)
-}
-
-uvozi.rezultatiZ2013 <- function() {
-  link <- "https://sl.wikipedia.org/wiki/Svetovno_prvenstvo_v_atletiki_2013"
-  stran <- html_session(link) %>% read_html()
-  tabela <- stran %>% html_nodes(xpath="//table[@class='wikitable']") %>%
-    .[[3]] %>% html_table(dec=",")
-  for (i in 1:ncol(tabela)) {
-    if (is.character(tabela[[i]])) {
-      Encoding(tabela[[i]]) <- "UTF-8"
-    }
-  }
-  return(tabela)
-}
-
-
-uvozi.rezultatiM2015 <- function() {
-  link <- "https://sl.wikipedia.org/wiki/Svetovno_prvenstvo_v_atletiki_2015"
-  stran <- html_session(link) %>% read_html()
-  tabela <- stran %>% html_nodes(xpath="//table[@class='wikitable']") %>%
-    .[[3]] %>% html_table(dec=",")
-  for (i in 1:ncol(tabela)) {
-    if (is.character(tabela[[i]])) {
-      Encoding(tabela[[i]]) <- "UTF-8"
-    }
-  }
-  return(tabela)
-}
-
-uvozi.rezultatiZ2015 <- function() {
-  link <- "https://sl.wikipedia.org/wiki/Svetovno_prvenstvo_v_atletiki_2015"
-  stran <- html_session(link) %>% read_html()
-  tabela <- stran %>% html_nodes(xpath="//table[@class='wikitable']") %>%
-    .[[3]] %>% html_table(dec=",")
-  for (i in 1:ncol(tabela)) {
-    if (is.character(tabela[[i]])) {
-      Encoding(tabela[[i]]) <- "UTF-8"
-    }
-  }
-  return(tabela)
-}
-
-
-uvozi.rezultatiM2017 <- function() {
-  link <- "https://sl.wikipedia.org/wiki/Svetovno_prvenstvo_v_atletiki_2017"
-  stran <- html_session(link) %>% read_html()
-  tabela <- stran %>% html_nodes(xpath="//table[@class='wikitable']") %>%
-    .[[3]] %>% html_table(dec=",")
-  for (i in 1:ncol(tabela)) {
-    if (is.character(tabela[[i]])) {
-      Encoding(tabela[[i]]) <- "UTF-8"
-    }
-  }
-  return(tabela)
-}
-
-uvozi.rezultatiZ2017 <- function() {
-  link <- "https://sl.wikipedia.org/wiki/Svetovno_prvenstvo_v_atletiki_2017"
-  stran <- html_session(link) %>% read_html()
-  tabela <- stran %>% html_nodes(xpath="//table[@class='wikitable']") %>%
-    .[[3]] %>% html_table(dec=",")
-  for (i in 1:ncol(tabela)) {
-    if (is.character(tabela[[i]])) {
-      Encoding(tabela[[i]]) <- "UTF-8"
-    }
-  }
-  return(tabela)
-}
-
+# zdruzene tabele za tekaske in tehnicne discipline
+zenske <- bind_rows(rezultati.zenske.tekaske, rezultati.zenske.tehnicne)
+moski <- bind_rows(rezultati.moski.tekaske, rezultati.moski.tehnicne)
