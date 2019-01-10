@@ -23,11 +23,13 @@ uvozi.medalje <- function() {
    tabela$država <- gsub("Russia", "Russian Federation", tabela$država)
    tabela$država <- gsub("Syria", "Syrian Arab Republic", tabela$država)
    tabela$država <- gsub("Ivory Coast", "Cote d'Ivoire", tabela$država)
-   tabela$država <- gsub("Venezuela", "Venezuela, RB", tabela$država)
-   tabela$država <- gsub("Saint Kitts and Nevis", "St. Kitts and Nevis", tabela$država)
    tabela$država <- gsub("Cote d'Ivoire", "Ivory Coast", tabela$država)
    tabela$država <- gsub("Czech Republic", "Czechia", tabela$država)
    tabela$država <- gsub("Serbia", "Republic of Serbia", tabela$država)
+   tabela$država <- gsub("Syrian Arab Republic","Syria", tabela$država)
+   tabela$država <- gsub("Tanzania","United Republic of Tanzania", tabela$država)
+   tabela$država <- gsub("United States","United States of America", tabela$država)
+   tabela$država <- gsub("Russian Federation","Russia", tabela$država)
    
 #   tabela$obcina <- gsub("Slovenskih", "Slov.", tabela$obcina)
 #   tabela$obcina[tabela$obcina == "Kanal ob Soči"] <- "Kanal"
@@ -55,7 +57,8 @@ medalje <- uvozi.medalje() %>% gather(lesk, število, -država)
 #imena_drzav <- medalje.drzave %in% populacija.drzave
 
 #zdruzena tabela uvozi.medalje in uvozi.populacija
-#zdruzena <- uvozi.medalje() %>% inner_join(uvozi.populacija, c("država"= "država"))
+#zdruzena <- uvozi.medalje() %>% inner_join(populacija, c("država"= "država"))
+
 
 # podatki v stolpcu povprečno_št_prebivalcev so tipa character, spremenjeno v numeric
 #zdruzena$povprečno_št_prebivalcev <- as.numeric(zdruzena$povprečno_št_prebivalcev)

@@ -35,7 +35,10 @@ source("lib/rstudio.r", encoding="UTF-8")
 # Obdelava, uvoz in čiščenje podatkov
 
 ```{r uvoz, echo=FALSE, message=FALSE}
-source("uvoz/uvoz.r", encoding="UTF-8")
+source("uvoz/populacija.r", encoding="UTF-8")
+source("uvoz/medalje.r", encoding="UTF-8")
+source("uvoz/svetovna prvenstva 2005-2017.r", encoding="UTF-8")
+source("uvoz/uvoz-iaaf.r", encoding="UTF-8")
 ```
 
 Uvozila sem podatke o populaciji iz spletne strani DataBank v obliki CSV, podatke o številu medalj posameznih držav na vseh svetovnih prvenstvih skupaj in medaliste za svetovna prvenstva od 2005 do 2017 iz Wikipedije v HTML obliki. Prav tako sem v HTML obliki uvozila potdobnejše rezultate za šprinterske discipline iz spletne strani IAAF

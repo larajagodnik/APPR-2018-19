@@ -51,7 +51,7 @@ uvozi.zemljevid <- function(url, ime.zemljevida, pot.zemljevida="",
                                       function(x)
                                         paste(c(x[1:(length(x)-1)], tolower(x[length(x)])),
                                               collapse="."))))
-  zemljevid <- readOGR(paste0(shp, ime.zemljevida, ".shp"), ime.zemljevida)
+  zemljevid <- readOGR(paste0(pot, ime.zemljevida, ".shp"), ime.zemljevida)
   
   if (!is.null(encoding)) {
     loc <- locale(encoding=encoding)
@@ -65,8 +65,6 @@ uvozi.zemljevid <- function(url, ime.zemljevida, pot.zemljevida="",
   
   return(zemljevid)
 }
-
-
 
 # Primer uvoza zemljevida (slovenske občine)
 # obcine <- uvozi.zemljevid("http://baza.fmf.uni-lj.si/OB.zip", "OB",

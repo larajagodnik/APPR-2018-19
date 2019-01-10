@@ -21,12 +21,18 @@ uvozi.populacija$država <- gsub("Cote d'Ivoire", "Ivory Coast", uvozi.populacij
 uvozi.populacija$država <- gsub("Czech Republic", "Czechia", uvozi.populacija$država)
 uvozi.populacija$država <- gsub("Serbia", "Republic of Serbia", uvozi.populacija$država)
 uvozi.populacija$država <- gsub("Slovak Republic", "Slovakia", uvozi.populacija$država)
+uvozi.populacija$država <- gsub("St. Kitts and Nevis","Saint Kitts and Nevis",  uvozi.populacija$država)
+uvozi.populacija$država <- gsub("Syrian Arab Republic","Syria",  uvozi.populacija$država)
+uvozi.populacija$država <- gsub("United States","United States of America",  uvozi.populacija$država)
+uvozi.populacija$država <- gsub("Venezuela, RB","Venezuela",  uvozi.populacija$država)
+uvozi.populacija$država <- gsub("Russian Federation","Russia",  uvozi.populacija$država)
 
 # tabela v obliki tidy data
 # drzava in povprecno stevilo prebivalcev v tisocih
 populacija <- melt(uvozi.populacija, value.name = "število", na.rm = FALSE) %>% 
   group_by(država) %>% summarize(prebivalstvo=sum(število, na.rm=TRUE))
 populacija$prebivalstvo <- format(round(populacija$prebivalstvo / 16 / 1000, 3), scientific = FALSE)
+
 
 # države, za katere ni podatkov sem našla povprečno št. prebivalcev na wikipediji
 # Czechoslovakia: 15600000, Soviet Union: 293000000, West Germany: 63254000, East Germany: 16111000
@@ -36,3 +42,5 @@ populacija <- rbind(populacija, c("Czechoslovakia", "15600.000"))
 populacija <- rbind(populacija, c("Soviet Union", "293000.000"))
 populacija <- rbind(populacija, c("West Germany", "63254.000"))
 populacija <- rbind(populacija, c("East Germany", "16111.000"))
+
+populacija <- populacija %>% mutate(prebivalstvo=parse_number(prebivalstvo))
