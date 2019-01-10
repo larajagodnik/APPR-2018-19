@@ -27,6 +27,8 @@ library(mosaic)
 #
 # Vrača:
 #   * zemljevid (SpatialPolygonsDataFrame) iz pobranega arhiva
+
+
 uvozi.zemljevid <- function(url, ime.zemljevida, pot.zemljevida="",
                             mapa="../zemljevidi", encoding=NULL, force=FALSE) {
   zgostitev <- digest(url, algo="sha1")
@@ -50,8 +52,8 @@ uvozi.zemljevid <- function(url, ime.zemljevida, pot.zemljevida="",
                                       function(x)
                                         paste(c(x[1:(length(x)-1)], tolower(x[length(x)])),
                                               collapse="."))))
-  zemljevid <- readOGR(pot, ime.zemljevida)
-
+  zemljevid <- readOGR(paste0(pot, ime.zemljevida, ".shp"), ime.zemljevida)
+  
   if (!is.null(encoding)) {
     loc <- locale(encoding=encoding)
     for (col in names(zemljevid)) {
@@ -64,6 +66,8 @@ uvozi.zemljevid <- function(url, ime.zemljevida, pot.zemljevida="",
   
   return(zemljevid)
 }
+
+
 
 # Primer uvoza zemljevida (slovenske občine)
 # obcine <- uvozi.zemljevid("http://baza.fmf.uni-lj.si/OB.zip", "OB",
