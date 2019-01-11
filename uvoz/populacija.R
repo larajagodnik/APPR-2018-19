@@ -9,38 +9,41 @@ uvozi.populacija <- read_csv("podatki_databank/populacija.csv",
 uvozi.populacija <- uvozi.populacija %>% select(3, 28, 32, 36, 38, 40, 42, 44, 46, 48, 50, 52, 54, 56, 58, 60, 62)
  
 #imena stolpcev 
-stolpci <- c("država", "1983", "1987", "1991", "1993", "1995", "1997", "1999", "2001",
+stolpci.imena <- c("drzava", "1983", "1987", "1991", "1993", "1995", "1997", "1999", "2001",
              "2003", "2005", "2007", "2009", "2011", "2013", "2015", "2017")
-colnames(uvozi.populacija) <- stolpci
-uvozi.populacija$država <- gsub("Bahamas, The", "The Bahamas", uvozi.populacija$država)
-uvozi.populacija$država <- gsub("Korea, Dem. People’s Rep.", "North Korea", uvozi.populacija$država)
-uvozi.populacija$država <- gsub("Korea, Rep.", "South Korea", uvozi.populacija$država)
-uvozi.populacija$država <- gsub("Egypt, Arab Rep.", "Egypt", uvozi.populacija$država)
-uvozi.populacija$država <- gsub("Iran, Islamic Rep.", "Iran", uvozi.populacija$država)
-uvozi.populacija$država <- gsub("Cote d'Ivoire", "Ivory Coast", uvozi.populacija$država)
-uvozi.populacija$država <- gsub("Czech Republic", "Czechia", uvozi.populacija$država)
-uvozi.populacija$država <- gsub("Serbia", "Republic of Serbia", uvozi.populacija$država)
-uvozi.populacija$država <- gsub("Slovak Republic", "Slovakia", uvozi.populacija$država)
-uvozi.populacija$država <- gsub("St. Kitts and Nevis","Saint Kitts and Nevis",  uvozi.populacija$država)
-uvozi.populacija$država <- gsub("Syrian Arab Republic","Syria",  uvozi.populacija$država)
-uvozi.populacija$država <- gsub("United States","United States of America",  uvozi.populacija$država)
-uvozi.populacija$država <- gsub("Venezuela, RB","Venezuela",  uvozi.populacija$država)
-uvozi.populacija$država <- gsub("Russian Federation","Russia",  uvozi.populacija$država)
+colnames(uvozi.populacija) <- stolpci.imena
+uvozi.populacija$drzava <- gsub("Bahamas, The", "The Bahamas", uvozi.populacija$drzava)
+uvozi.populacija$drzava <- gsub("Korea, Dem. People’s Rep.", "North Korea", uvozi.populacija$drzava)
+uvozi.populacija$drzava <- gsub("Korea, Rep.", "South Korea", uvozi.populacija$drzava)
+uvozi.populacija$drzava <- gsub("Egypt, Arab Rep.", "Egypt", uvozi.populacija$drzava)
+uvozi.populacija$drzava <- gsub("Iran, Islamic Rep.", "Iran", uvozi.populacija$drzava)
+uvozi.populacija$drzava <- gsub("Cote d'Ivoire", "Ivory Coast", uvozi.populacija$drzava)
+uvozi.populacija$drzava <- gsub("Czech Republic", "Czechia", uvozi.populacija$drzava)
+uvozi.populacija$drzava <- gsub("Serbia", "Republic of Serbia", uvozi.populacija$drzava)
+uvozi.populacija$drzava <- gsub("Slovak Republic", "Slovakia", uvozi.populacija$drzava)
+uvozi.populacija$drzava <- gsub("St. Kitts and Nevis","Saint Kitts and Nevis",  uvozi.populacija$drzava)
+uvozi.populacija$drzava <- gsub("Syrian Arab Republic","Syria",  uvozi.populacija$drzava)
+uvozi.populacija$drzava <- gsub("United States","United States of America",  uvozi.populacija$drzava)
+uvozi.populacija$drzava <- gsub("Venezuela, RB","Venezuela",  uvozi.populacija$drzava)
+uvozi.populacija$drzava <- gsub("Russian Federation","Russia",  uvozi.populacija$drzava)
 
 # tabela v obliki tidy data
 # drzava in povprecno stevilo prebivalcev v tisocih
-populacija <- melt(uvozi.populacija, value.name = "število", na.rm = FALSE) %>% 
-  group_by(država) %>% summarize(prebivalstvo=sum(število, na.rm=TRUE))
-populacija$prebivalstvo <- format(round(populacija$prebivalstvo / 16 / 1000, 3), scientific = FALSE)
+populacija <- melt(uvozi.populacija, value.name = "stevilo", na.rm = FALSE) %>% 
+  group_by(drzava) %>% summarize(prebivalstvo=sum(stevilo, na.rm=TRUE))
+
+#ce bo rablo za graf, zemljevid
+# populacija <- melt(uvozi.populacija, value.name="število", na.rm=FALSE) %>% 
+#   group_by(država) %>% summarize(prebivalstvo=mean(število, na.rm=TRUE))
 
 
 # države, za katere ni podatkov sem našla povprečno št. prebivalcev na wikipediji
 # Czechoslovakia: 15600000, Soviet Union: 293000000, West Germany: 63254000, East Germany: 16111000
 
-# dodane vrstice z državami, ki jih prej ni bilo
-populacija <- rbind(populacija, c("Czechoslovakia", "15600.000"))
-populacija <- rbind(populacija, c("Soviet Union", "293000.000"))
-populacija <- rbind(populacija, c("West Germany", "63254.000"))
-populacija <- rbind(populacija, c("East Germany", "16111.000"))
+# dodane vrstice z drzavami, ki jih prej ni bilo
+populacija <- rbind(populacija, list("Czechoslovakia", 15600000))
+populacija <- rbind(populacija, list("Soviet Union", 293000000))
+populacija <- rbind(populacija, list("West Germany", 63254000))
+populacija <- rbind(populacija, list("East Germany", 16111000))
 
 populacija <- populacija %>% mutate(prebivalstvo=parse_number(prebivalstvo))

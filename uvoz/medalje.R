@@ -14,22 +14,22 @@ uvozi.medalje <- function() {
       Encoding(tabela[[i]]) <- "UTF-8"
     }
   }
-   colnames(tabela) <- c("država", "zlato", "srebro", "bron")
+   colnames(tabela) <- c("drzava", "zlato", "srebro", "bron")
    tabela <- tabela[-c(54,103),] #izbris vrstice s podatki o neodvisnih šprtnikih (Rusija) in zadnje
-   tabela$država <- gsub(".{6}$", "", tabela$država)
-   tabela$država <- gsub("American Samoa", "Samoa", tabela$država)
-   tabela$država <- gsub("Bahamas", "The Bahamas", tabela$država)
-   tabela$država <- gsub("Great Britain & N.I.", "United Kingdom", tabela$država)
-   tabela$država <- gsub("Russia", "Russian Federation", tabela$država)
-   tabela$država <- gsub("Syria", "Syrian Arab Republic", tabela$država)
-   tabela$država <- gsub("Ivory Coast", "Cote d'Ivoire", tabela$država)
-   tabela$država <- gsub("Cote d'Ivoire", "Ivory Coast", tabela$država)
-   tabela$država <- gsub("Czech Republic", "Czechia", tabela$država)
-   tabela$država <- gsub("Serbia", "Republic of Serbia", tabela$država)
-   tabela$država <- gsub("Syrian Arab Republic","Syria", tabela$država)
-   tabela$država <- gsub("Tanzania","United Republic of Tanzania", tabela$država)
-   tabela$država <- gsub("United States","United States of America", tabela$država)
-   tabela$država <- gsub("Russian Federation","Russia", tabela$država)
+   tabela$drzava <- gsub(".{6}$", "", tabela$drzava)
+   tabela$drzava <- gsub("American Samoa", "Samoa", tabela$drzava)
+   tabela$drzava <- gsub("Bahamas", "The Bahamas", tabela$drzava)
+   tabela$drzava <- gsub("Great Britain & N.I.", "United Kingdom", tabela$drzava)
+   tabela$drzava <- gsub("Russia", "Russian Federation", tabela$drzava)
+   tabela$drzava <- gsub("Syria", "Syrian Arab Republic", tabela$drzava)
+   tabela$drzava <- gsub("Ivory Coast", "Cote d'Ivoire", tabela$drzava)
+   tabela$drzava <- gsub("Cote d'Ivoire", "Ivory Coast", tabela$drzava)
+   tabela$drzava <- gsub("Czech Republic", "Czechia", tabela$drzava)
+   tabela$drzava <- gsub("Serbia", "Republic of Serbia", tabela$drzava)
+   tabela$drzava <- gsub("Syrian Arab Republic","Syria", tabela$drzava)
+   tabela$drzava <- gsub("Tanzania","United Republic of Tanzania", tabela$drzava)
+   tabela$drzava <- gsub("United States","United States of America", tabela$drzava)
+   tabela$drzava <- gsub("Russian Federation","Russia", tabela$drzava)
    
 #   tabela$obcina <- gsub("Slovenskih", "Slov.", tabela$obcina)
 #   tabela$obcina[tabela$obcina == "Kanal ob Soči"] <- "Kanal"
@@ -45,19 +45,19 @@ uvozi.medalje <- function() {
 
 # tabela za medalje
 # medalje <- melt(uvozi.medalje(), value.name = "število") %>%
-#   transmute(država, tip = variable %>% parse_character() %>% strapplyc("^(.*)_") %>% unlist(),
+#   transmute(drzava, tip = variable %>% parse_character() %>% strapplyc("^(.*)_") %>% unlist(),
 #   barva = variable %>% parse_character() %>% strapplyc("_(.*)$"), unlist(), število )
 
-medalje <- uvozi.medalje() %>% gather(lesk, število, -država)
+medalje <- uvozi.medalje() %>% gather(lesk, število, -drzava)
 
 
 # preverim imena katerih držav se razlikujejo
-#medalje.drzave <- uvozi.medalje()$država
-#populacija.drzave <- uvozi.populacija$država
+#medalje.drzave <- uvozi.medalje()$drzava
+#populacija.drzave <- uvozi.populacija$drzava
 #imena_drzav <- medalje.drzave %in% populacija.drzave
 
 #zdruzena tabela uvozi.medalje in uvozi.populacija
-#zdruzena <- uvozi.medalje() %>% inner_join(populacija, c("država"= "država"))
+#zdruzena <- uvozi.medalje() %>% inner_join(populacija, c("drzava"= "drzava"))
 
 
 # podatki v stolpcu povprečno_št_prebivalcev so tipa character, spremenjeno v numeric

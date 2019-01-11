@@ -12,7 +12,7 @@ uvozi.rezultati1 <- function(link, leto, t) {
     }
   }
   tabela <- tabela[-1,]
-  tabela <- head(tabela, -2)
+  tabela <- head(tabela, -2) #odstranim podatke o stafetah
   return(tabela)
 }
 
@@ -28,6 +28,7 @@ uvozi.rezultati2 <- function(link, leto, t) {
     }
   }
   tabela <- tabela[-1,]
+  tabela <- head(tabela, -1) # odstranim podatke o sedmeroboju/deseteroboju
   return(tabela)
 }
 
@@ -43,7 +44,7 @@ rezultati.moski.tehnicne <- lapply(1:7, function(i) uvozi.rezultati2(paste0("htt
 
 rezultati.zenske.tekaske <- lapply(1:7, function(i) uvozi.rezultati1(paste0("https://sl.wikipedia.org/wiki/Svetovno_prvenstvo_v_atletiki_",
                                                                            leto[i]), 2019-2*i, t=3)) %>% bind_rows()
-rezultati.zenske.tekaske <- rezultati.zenske.tekaske[-13,]  #dodatno odstranim podatke o hoji na 50kmza ženske - disciplina uvedena v 2017
+rezultati.zenske.tekaske <- rezultati.zenske.tekaske[-13,]  #dodatno odstranim podatke o hoji na 50km za ženske - disciplina uvedena v 2017
 
 rezultati.zenske.tehnicne <- lapply(1:7, function(i) uvozi.rezultati2(paste0("https://sl.wikipedia.org/wiki/Svetovno_prvenstvo_v_atletiki_",
                                                                             leto[i]), 2019-2*i, t=4)) %>% bind_rows()
@@ -54,3 +55,36 @@ tabela3 <- uvozi.rezultati2("https://sl.wikipedia.org/wiki/Svetovno_prvenstvo_v_
 # zdruzene tabele za tekaske in tehnicne discipline
 zenske <- bind_rows(rezultati.zenske.tekaske, rezultati.zenske.tehnicne)
 moski <- bind_rows(rezultati.moski.tekaske, rezultati.moski.tehnicne)
+
+
+#ureditev tabele
+stolpci <- c("disciplina", "tekmovalec1", "rezultat1", "tekmovalec2", "rezultat2",
+             "tekmovalec3", "rezultat3", "leto")
+names(zenske) <- stolpci
+names(moski) <- stolpci
+vsi.rezultati <- rbind(zenske %>% mutate(spol="Ženski"),
+                       moski %>% mutate(spol="Moški")) %>%
+  transmute(disciplina, leto, spol,
+            `1`=paste0(tekmovalec1, "_", rezultat1),
+            `2`=paste0(tekmovalec2, "_", rezultat2),
+            `3`=paste0(tekmovalec3, "_", rezultat3)) %>%
+  melt(id.vars=c("disciplina", "leto", "spol"), variable.name="uvrstitev") %>%
+  separate(value, c("tekmovalec", "rezultat"), "_") %>%
+  filter(tekmovalec != "")
+
+
+tekaske <- unique(c(rezultati.moski.tekaske[[1]], rezultati.zenske.tekaske[[1]]))
+options(digits.secs=2) # sekunde so izražene z dvema decimalkama
+rezultati.tekaske <- vsi.rezultati %>% filter(disciplina %in% tekaske) %>%
+  mutate(rezultat=strapplyc(rezultat,
+                            "^(?:([0-9]+):)??(?:([0-9]+):)?([0-9]+)(?:[.,]([0-9]+))?[^0-9]*$") %>%
+           sapply(function(x) do.call(sprintf, c("%02d:%02d:%02d.%02d",
+                                                 parse_number(x) %>% coalesce(0) %>%
+                                                   as.list()))) %>%
+           parse_time("%H:%M:%OS"))
+
+
+tehnicne <- unique(c(rezultati.moski.tehnicne[[1]], rezultati.zenske.tehnicne[[1]]))
+rezultati.tehnicne <- vsi.rezultati %>% filter(disciplina %in% tehnicne)
+rezultati.tehnicne$rezultat <- gsub("\\,", "\\.", rezultati.tehnicne$rezultat)
+rezultati.tehnicne <- rezultati.tehnicne %>% mutate(rezultat=parse_number(as.character(rezultat)))
