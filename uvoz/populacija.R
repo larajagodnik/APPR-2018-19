@@ -29,12 +29,12 @@ uvozi.populacija$drzava <- gsub("Russian Federation","Russia",  uvozi.populacija
 
 # tabela v obliki tidy data
 # drzava in povprecno stevilo prebivalcev v tisocih
-populacija <- melt(uvozi.populacija, value.name = "stevilo", na.rm = FALSE) %>% 
-  group_by(drzava) %>% summarize(prebivalstvo=sum(stevilo, na.rm=TRUE))
+populacija <- melt(uvozi.populacija, value.name = "stevilo", na.rm = FALSE) %>%
+  group_by(drzava) %>% summarize(prebivalstvo=mean(stevilo, na.rm=TRUE))
 
 #ce bo rablo za graf, zemljevid
-# populacija <- melt(uvozi.populacija, value.name="število", na.rm=FALSE) %>% 
-#   group_by(država) %>% summarize(prebivalstvo=mean(število, na.rm=TRUE))
+# populacija <- melt(uvozi.populacija, value.name="stevilo", na.rm=FALSE) %>% 
+#   group_by(drzava) %>% summarize(prebivalstvo=mean(stevilo, na.rm=TRUE))
 
 
 # države, za katere ni podatkov sem našla povprečno št. prebivalcev na wikipediji
@@ -46,4 +46,3 @@ populacija <- rbind(populacija, list("Soviet Union", 293000000))
 populacija <- rbind(populacija, list("West Germany", 63254000))
 populacija <- rbind(populacija, list("East Germany", 16111000))
 
-populacija <- populacija %>% mutate(prebivalstvo=parse_number(prebivalstvo))

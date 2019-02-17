@@ -21,14 +21,14 @@ source("lib/libraries.r", encoding="UTF-8")
 
 ```{r rstudio, echo=FALSE, results='asis'}
 # Izris povezave do RStudia na Binderju
-source("lib/rstudio.r", encoding="UTF-8")
+#source("lib/rstudio.r", encoding="UTF-8")
 ```
 
 # Izbira teme
 
 Prikazala bom podatke iz svetovnih prvenstev v atletiki.
 
-![](slike/IAAF.png)
+s![](slike/IAAF.png)
 
 ***
 

@@ -12,7 +12,7 @@ uvozi.rezultati1 <- function(link, leto, t) {
     }
   }
   tabela <- tabela[-1,]
-  tabela <- head(tabela, -2) #odstranim podatke o stafetah
+  tabela <- head(tabela, -2)
   return(tabela)
 }
 
@@ -28,7 +28,7 @@ uvozi.rezultati2 <- function(link, leto, t) {
     }
   }
   tabela <- tabela[-1,]
-  tabela <- head(tabela, -1) # odstranim podatke o sedmeroboju/deseteroboju
+  tabela <- head(tabela, -1)
   return(tabela)
 }
 
@@ -57,7 +57,7 @@ zenske <- bind_rows(rezultati.zenske.tekaske, rezultati.zenske.tehnicne)
 moski <- bind_rows(rezultati.moski.tekaske, rezultati.moski.tehnicne)
 
 
-#ureditev tabele
+#ureditev tabel
 stolpci <- c("disciplina", "tekmovalec1", "rezultat1", "tekmovalec2", "rezultat2",
              "tekmovalec3", "rezultat3", "leto")
 names(zenske) <- stolpci
@@ -87,4 +87,7 @@ rezultati.tekaske <- vsi.rezultati %>% filter(disciplina %in% tekaske) %>%
 tehnicne <- unique(c(rezultati.moski.tehnicne[[1]], rezultati.zenske.tehnicne[[1]]))
 rezultati.tehnicne <- vsi.rezultati %>% filter(disciplina %in% tehnicne)
 rezultati.tehnicne$rezultat <- gsub("\\,", "\\.", rezultati.tehnicne$rezultat)
-rezultati.tehnicne <- rezultati.tehnicne %>% mutate(rezultat=parse_number(as.character(rezultat)))
+rezultati.tehnicne <- rezultati.tehnicne %>% mutate(rezultat=parse_number(as.character(rezultat))) %>%
+  na.omit()
+
+

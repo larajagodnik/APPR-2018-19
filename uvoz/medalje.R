@@ -20,7 +20,6 @@ uvozi.medalje <- function() {
    tabela$drzava <- gsub("American Samoa", "Samoa", tabela$drzava)
    tabela$drzava <- gsub("Bahamas", "The Bahamas", tabela$drzava)
    tabela$drzava <- gsub("Great Britain & N.I.", "United Kingdom", tabela$drzava)
-   tabela$drzava <- gsub("Russia", "Russian Federation", tabela$drzava)
    tabela$drzava <- gsub("Syria", "Syrian Arab Republic", tabela$drzava)
    tabela$drzava <- gsub("Ivory Coast", "Cote d'Ivoire", tabela$drzava)
    tabela$drzava <- gsub("Cote d'Ivoire", "Ivory Coast", tabela$drzava)
@@ -29,7 +28,6 @@ uvozi.medalje <- function() {
    tabela$drzava <- gsub("Syrian Arab Republic","Syria", tabela$drzava)
    tabela$drzava <- gsub("Tanzania","United Republic of Tanzania", tabela$drzava)
    tabela$drzava <- gsub("United States","United States of America", tabela$drzava)
-   tabela$drzava <- gsub("Russian Federation","Russia", tabela$drzava)
    
 #   tabela$obcina <- gsub("Slovenskih", "Slov.", tabela$obcina)
 #   tabela$obcina[tabela$obcina == "Kanal ob Soči"] <- "Kanal"
@@ -48,7 +46,7 @@ uvozi.medalje <- function() {
 #   transmute(drzava, tip = variable %>% parse_character() %>% strapplyc("^(.*)_") %>% unlist(),
 #   barva = variable %>% parse_character() %>% strapplyc("_(.*)$"), unlist(), število )
 
-medalje <- uvozi.medalje() %>% gather(lesk, število, -drzava)
+medalje <- uvozi.medalje() %>% gather(lesk, stevilo, -drzava)
 
 
 # preverim imena katerih držav se razlikujejo
