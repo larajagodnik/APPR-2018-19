@@ -7,6 +7,12 @@ library(reshape2)
 library(ggplot2)
 library(munsell)
 
+rezultati.tekaske.relativno <- rezultati.tekaske$relativno <- rezultati.tekaske$rezultat - rezultati.tekaske
+
+ggplot(data=rezultati.tekaske %>% filter(uvrstitev==1, spol=="Ženski"), aes(x=leto, y=rezultat, group=disciplina, color=disciplina)) + geom_line()
+ggplot(data=moski.sprint%>% filter(POS==1), aes(x=leto, y=MARK, group=disciplina, color=disciplina)) + geom_line()
+ggplot(data=moski.sprint%>% filter(POS==1), aes(x=leto, y="Reaction Time", group=disciplina, color=disciplina)) + geom_line()
+
 # Uvozimo zemljevid sveta
 
 zemljevid <- uvozi.zemljevid("https://www.naturalearthdata.com/http//www.naturalearthdata.com/download/50m/cultural/ne_50m_admin_0_countries.zip",
