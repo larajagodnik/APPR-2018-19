@@ -26,6 +26,7 @@ uvozi.populacija$drzava <- gsub("Syrian Arab Republic","Syria",  uvozi.populacij
 uvozi.populacija$drzava <- gsub("United States","United States of America",  uvozi.populacija$drzava)
 uvozi.populacija$drzava <- gsub("Venezuela, RB","Venezuela",  uvozi.populacija$drzava)
 uvozi.populacija$drzava <- gsub("Russian Federation","Russia",  uvozi.populacija$drzava)
+uvozi.populacija$drzava <- gsub("Tanzania","United Republic of Tanzania",  uvozi.populacija$drzava)
 
 # tabela v obliki tidy data
 # drzava in povprecno stevilo prebivalcev v tisocih
