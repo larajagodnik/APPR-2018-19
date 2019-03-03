@@ -82,6 +82,8 @@ rezultati.tekaske <- vsi.rezultati %>% filter(disciplina %in% tekaske) %>%
                                                  parse_number(x) %>% coalesce(0) %>%
                                                    as.list()))) %>%
            parse_time("%H:%M:%OS"))
+# spremenim podatke v stolpcu rezultat iz H,M,S v sekunde
+rezultati.tekaske$rezultat <- period_to_seconds(hms(rezultati.tekaske$rezultat))
 
 
 tehnicne <- unique(c(rezultati.moski.tehnicne[[1]], rezultati.zenske.tehnicne[[1]]))
