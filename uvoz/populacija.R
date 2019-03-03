@@ -2,11 +2,11 @@
 uvozi.populacija <- read_csv("podatki_databank/populacija.csv",
                            #  locale = locale(encoding = "UTF-8"),
                              col_names = TRUE,
-                             n_max = 258,
+                             n_max = 217,
                              na=c("", " ", "-", "..")) 
 
 # izbrisani stolpci, ko ni bilo svetovnega prvenstva
-uvozi.populacija <- uvozi.populacija %>% select(3, 28, 32, 36, 38, 40, 42, 44, 46, 48, 50, 52, 54, 56, 58, 60, 62)
+uvozi.populacija <- uvozi.populacija %>% select(3, 5, 9, 13, 15, 17, 19, 21, 23, 25, 27, 29, 31, 33, 35, 37, 39)
  
 #imena stolpcev 
 stolpci.imena <- c("drzava", "1983", "1987", "1991", "1993", "1995", "1997", "1999", "2001",

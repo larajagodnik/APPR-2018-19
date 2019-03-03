@@ -26,10 +26,10 @@ source("lib/libraries.r", encoding="UTF-8")
 
 # Izbira teme
 
-Prikazala bom podatke iz svetovnih prvenstev v atletiki.
+Za temo projektne naloge sem izbrala svetovna prvenstva iz atletike.
+V projektu si bom ogledala, kako uspešne so države po osvojenih medaljah in kako so se spreminjali rezultati po posamiznih disciplinah skozi čas. Poskusila bom ugotoviti ali je kakšna povezava med reakcijskim časom in rezultatom, ter reakcijskim časom in disciplino.
 
-s![](slike/IAAF.png)
-
+![](slike/IAAF.jpg)
 ***
 
 # Obdelava, uvoz in čiščenje podatkov
@@ -41,52 +41,69 @@ source("uvoz/svetovna_prvenstva.R", encoding="UTF-8")
 source("uvoz/uvoz_iaaf.R", encoding="UTF-8")
 ```
 
-Uvozila sem podatke o populaciji iz spletne strani DataBank v obliki CSV, podatke o številu medalj posameznih držav na vseh svetovnih prvenstvih skupaj in medaliste za svetovna prvenstva od 2005 do 2017 iz Wikipedije v HTML obliki. Prav tako sem v HTML obliki uvozila potdobnejše rezultate za šprinterske discipline iz spletne strani IAAF
+Uvozila sem podatke o populaciji iz spletne strani DataBank v obliki CSV, podatke o številu medalj posameznih držav na vseh svetovnih prvenstvih skupaj in medaliste za svetovna prvenstva od 2005 do 2017 iz Wikipedije v HTML obliki. Prav tako sem v HTML obliki uvozila podrobnejše rezultate za šprinterske discipline med letoma 1999 in 2017 iz spletne strani IAAF.
 
 
-Podatki so v ?? razpredelnicah v obliki *tidy data*.
+Podatki so v petih razpredelnicah v obliki *tidy data*.
 
-1. `druzine` - podatki o družinah za vsako občino
-  - `obcina` - spremenljivka: ime občine (neurejen faktor),
-  - `velikost.druzine` - spremenljivka: število otrok v družini (število: 1, 2, 3 ali 4, kjer zadnja vrednost pomeni 4 ali več),
-  - `stevilo.druzin` - meritev: število družin z ustreznim številom otrok v ustrezni občini (število).
+1. `medalje` - podatki o številu medalj glede na njen lesk, za vsako državo za vsa svetovna prvenstva skupaj 
+  - `drzava` - spremenljivka: ime drzave [character],
+  - `lesk` - spremenljivka: lesk osvojenje medalje -zlato, srebro ali bron [character],
+  - `stevilo` - meritev: število osvojenih medalj določenega leska [numeric].
+  
+2. `prebivalstvo` - podatki o povprečnem številu prebivalcev v letih, ko je bilo svetovno prvenstvo
+  - `drzava` - spremenljivka: ime drzave [character],
+  - `prebivalstvo` - meritev: povprečno število prebivalcev v letih, ko je bilo svetovno prvenstvo [numeric].
 
-2. `obcine` - podatki o občinah
-  - `obcina` - spremenljivka: ime občine (neurejen faktor),
-  - `povrsina` - meritev: površina občine v km$^2$ (število),
-  - `prebivalci` - meritev: prebivalstvo občine (število),
-  - `gostota` - meritev: število prebivalcev na km$^2$ (število),
-  - `naselja` - meritev: število naselij v občini (število),
-  - `ustanovitev` - meritev: leto ustanovitve občine (število),
-  - `pokrajina` - meritev: pokrajina, ki ji občina pripada (neurejen faktor),
-  - `regija` - meritev: regija, ki ji občina pripada (neurejen faktor),
-  - `odcepitev` - meritev: podatki o občinah, od katerih se je občina odcepila (besedilo).
+3. `rezultati.tekaske` - podatki o prvih treh uvrščenih iz svetovnih prvenstev 2005 - 2017 za tekaške discipline
+  - `disciplina` - spremenljivka: ime discipline - 12 različnih disciplin [character],
+  - `leto` - spremenljivka: leto v katerem je potekalo svetovno prvenstvo [numeric],
+  - `spol` - spremenljivka: spol tekmovalca [character],
+  - `uvrstitev` - meritev: uvrstitev tekmovalca - 1., 2. ali 3. mesto [factor],
+  - `tekmovalec` - spremeljivka: ime tekmovalca [character],
+  - `rezultat` - meritev: čas tekmovalca izražen v sekundah [numeric].
+ 
+4. `rezultati.tehnicne` - podatki o prvih treh uvrščenih iz svetovnih prvenstev 2005 - 2017 (na 2 leti) za tehnične discipline
+  - `disciplina` - spremenljivka: ime discipline - 8 različnih disciplin [character],
+  - `leto` - spremenljivka: leto v katerem je potekalo svetovno prvenstvo [numeric],
+  - `spol` - spremenljivka: spol tekmovalca [character],
+  - `uvrstitev` - meritev: uvrstitev tekmovalca - 1., 2. ali 3. mesto [factor],
+  - `tekmovalec` - spremeljivka: ime tekmovalca [character],
+  - `rezultat` - meritev: rezultat tekmovalca izražen v metrih [numeric]. 
 
-**Opomba**: da bi razpredelnica `obcine` res bila v obliki *tidy data*, bi morali odstraniti stolpec `gostota` (saj je izpeljan iz stolpcev `povrsina` in `prebivalci`), podatke o pokrajinah pa bi morali premakniti v drugo razpredelnico, saj nekatere občine pripadajo dvema pokrajinama. Podobno bi morali narediti tudi s stolpcem `odcepitev`.
+5. `sprint` - podatkih o finalnem teku na svetovnih prvenstvih 1999 - 2017 (na dve leti) za šprinterske discipline
+  - `POS` - meritev: uvrstitev tekmovalca - od 1. do 8. mesta [numeric],
+  - `ATHLETE` - spremenljivka: ime tekmovalca [character],
+  - `COUNTRY` - spremenljivka: država katero zastopa tekmovalec [character],
+  - `MARK` - meritev: rezultat tekmovalca izražen v sekundah [numeric],
+  - `Reaction Time` - meritev: reakcijski čas tekmovalca izražen v sekundah [numeric],
+  - `leto` - spremenljivka: leto v katerem je bilo svetovno prvenstvo [numeric], 
+  - `disciplina` - spremenljivka: disciplina v kateri je tekmovalec tekmoval - 100, 200 ali 400 m [character],
+  - `spol` - spremenljivka: spol tekmovalca [character]. 
+
+**Opomba**: da bi razpredelnica `populacija` res bila v obliki *tidy data*, bi morala podatke o številu prebivalcev pustiti za vsako leto posebej, a sem jih zaradi lažje nadaljne uporabe že na tem mestu oblikovala v povprečno število prebivalcev.
 
 Spodnji graf prikazuje porazdelitev števila naselij v občinah.
 
 ```{r histogram, echo=FALSE, message=FALSE, fig.align='center', fig.cap='Histogram števila naselij v občinah'}
 #gplot(obcine, aes(x=naselja)) + geom_histogram() +
- # ggtitle("Pogostost števila naselij") + xlab("Število naselij") + ylab("Število občin")
+#  ggtitle("Pogostost števila naselij") + xlab("Število naselij") + ylab("Število občin")
 ```
 
 ***
 
 # Analiza in vizualizacija podatkov
 
-```{r vizualizacija, echo=FALSE, message=FALSE, warning=FALSE, results='hide'}
-# source("vizualizacija/vizualizacija.r", encoding="UTF-8")
+```{r vizualizacija, echo=FALSE, message=FALSE, warning=FALSE, results='hide', encoding="UTF-8-BOM"}
+source("vizualizacija/vizualizacija.r", encoding="UTF-8")
 ```
 
-Spodnji zemljevid prikazuje povprečno velikost družine za vsako občino.
+Spodnji graf prikazuje število medalj posamezne države glede na lesk. V grafu je zaradi boljše preglednosti prikazano število medalj samo za tiste držve in lesk, kjer je osvojeno število medalj večje od 8. 
 
-```{r zemljevid, echo=FALSE, fig.align='center', fig.cap='Zemljevid povprečnega števila otrok v družini'}
-ggplot() + geom_polygon(data=left_join(zemljevid, povprecja, by=c("OB_UIME"="obcina")),
-                        aes(x=long, y=lat, group=group, fill=povprecje)) +
-  ggtitle("Povprečno število otrok v družini") + xlab("") + ylab("") +
-  guides(fill=guide_colorbar(title="Povprečje"))
+```{r graf.medalje, echo=FALSE, fig.align='center', fig.cap='Graf1'}
+graf.medalje
 ```
+Iz grafa lahko razberemo, da sp na prvem mestu prepričljivo Združene države Amerike. Imajo namreč več kot dvakrat več srebrnih in zlatih medalj kot Rusija na drugem mestu, prav tako imajo prepričljivo največ tudi bronastih. Dejstvo, da so na prvih mestih ravno države kot so ZDA, Rusija, Kenija, Nemčija, Združeno kraljestvo Velike Britanije in kmalu sledi Kitajska, ne preseneča. To so namreč države z zelo velikim velikim številom prebivalcev
 
 ***
 
