@@ -4,6 +4,8 @@ library(rgeos)
 library(mosaic)
 library(maptools)
 library(munsell)
+library(StatMeasures)
+
 
 
 #
@@ -38,7 +40,10 @@ graf.medalje <- ggplot(data=medalje %>% filter(stevilo>=8), mapping = aes(x=reor
   theme(axis.text.x = element_text(angle = 90, size = 8))
 
 #graf povprecnega stevila prebivalcev
-graf.prebivalstvo <- ggplot(data=populacija %>% filter(prebivalstvo>=60000000), aes(x=reorder(drzava, -prebivalstvo), y=prebivalstvo)) +
+graf.prebivalstvo <- ggplot(data=populacija %>% filter(prebivalstvo>=60000000),
+                            aes(x=reorder(drzava, -prebivalstvo), y=prebivalstvo)) +
+  labs(x="Država", y="Število prebivalcev") +
+  ggtitle("Prebivalstvo") +
   geom_bar(stat = "identity") +
   theme(axis.text.x = element_text(angle = 90, size = 8))
 
@@ -64,9 +69,9 @@ zemljevid.medalje <- ggplot() + geom_polygon(data=left_join(zemljevid,st.medalj,
   ggtitle("Države glede na skupno število medalj")
 
 
-# povprecno.populacija <- melt(uvozi.populacija, value.name="stevilo", na.rm=FALSE) %>% 
+# povprecno.populacija <- melt(uvozi.populacija, value.name="stevilo", na.rm=FALSE) %>%
 #     group_by(drzava) %>% summarize(prebivalstvo=mean(stevilo, na.rm=TRUE))
-# st.medalj.preb <- left_join(medalje, povprecno.populacija, by="drzava") 
+# st.medalj.preb <- left_join(medalje, povprecno.populacija, by="drzava")
 # 
 # medalje.na.preb <- medalje %>% inner_join(uvozi.populacija %>%
 #                                             melt(uvozi.populacija, value.name="stevilo", na.rm=FALSE) %>%
@@ -76,7 +81,7 @@ zemljevid.medalje <- ggplot() + geom_polygon(data=left_join(zemljevid,st.medalj,
 #zemljevid: stevilo medalj na prebivalca
 medalje.na.preb <- left_join(x=st.medalj, y=populacija, by="drzava")
 medalje.na.preb$medalje_na_preb <- (medalje.na.preb$st_medalj / medalje.na.preb$prebivalstvo)
-medalje.na.preb$odstopanje <- medalje.na.preb$medalje_na_preb - mean(medalje.na.preb$medalje_na_preb)
+#medalje.na.preb$odstopanje <- medalje.na.preb$medalje_na_preb - mean(medalje.na.preb$medalje_na_preb)
 medalje.na.preb$skupina <- decile(medalje.na.preb$odstopanje)
 
 zemljevid.medalje.preb <- ggplot() + geom_polygon(data=left_join(zemljevid,medalje.na.preb, by=c("SOVEREIGNT"="drzava")),
@@ -89,3 +94,15 @@ zemljevid.medalje.preb <- ggplot() + geom_polygon(data=left_join(zemljevid,medal
 #                         aes(x=long, y=lat, group=group, fill=medalje_na_preb)) +
 #   scale_fill_continuous(limits = c(0, 10000), breaks = c(100, 1000, 3000, 5000, 6250, 7500, 8750, 10000))
 
+#
+# cluster poskus
+#
+
+# medalje.na.preb1 <- medalje.na.preb[4]
+# d <- dist(medalje.na.preb1, method = "euclidean")
+# fit <- hclust(d, method="ward.D") 
+# groups <- cutree(fit, k=5)
+# cluster5 <- mutate(medalje.na.preb, groups)
+# ggplot() + geom_polygon(data=left_join(zemljevid, cluster5, by=c("SOVEREIGNT"="drzava")),
+#                         aes(x=long, y=lat, group=group,
+#                             fill=factor(groups)))

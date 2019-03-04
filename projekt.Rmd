@@ -103,7 +103,22 @@ Spodnji graf prikazuje število medalj posamezne države glede na lesk. V grafu 
 ```{r graf.medalje, echo=FALSE, fig.align='center', fig.cap='Graf1'}
 graf.medalje
 ```
-Iz grafa lahko razberemo, da sp na prvem mestu prepričljivo Združene države Amerike. Imajo namreč več kot dvakrat več srebrnih in zlatih medalj kot Rusija na drugem mestu, prav tako imajo prepričljivo največ tudi bronastih. Dejstvo, da so na prvih mestih ravno države kot so ZDA, Rusija, Kenija, Nemčija, Združeno kraljestvo Velike Britanije in kmalu sledi Kitajska, ne preseneča. To so namreč države z zelo velikim velikim številom prebivalcev
+Iz grafa lahko razberemo, da sp na prvem mestu prepričljivo Združene države Amerike. Imajo namreč več kot dvakrat več srebrnih in zlatih medalj kot Rusija na drugem mestu, prav tako imajo prepričljivo največ tudi bronastih. Zdi se, da so na šrvih mestih države z zelo veliko prebivalci, zato si oglejmo še graf, ki prikazuje države in njihovo populacijo, če je ta večja kot 60 milijonov.
+
+```{r graf.prebivalstvo, echo=FALSE, fig.align='center', fig.cap='Graf2'}
+graf.prebivalstvo
+```
+
+Ob ogledu obeh zgornjih grafov lahko opazimo, da se kar nekaj držav ujema. To so Kitajska, bivša Sovjetska zveza, ZDA, Rusija, Nemčija, Filipini, Etiopija, Francija in Velika Britanija. Dejstvo, da so na prvih mestih po številu medalj ravno države kot so ZDA, Rusija, Kenija, Nemčija in ostale velike države torej ne preseneča. Mednje pa so se vmešale tudi manjše države, zato bi bilo bolj smiselno pogledati koliko medalj je osvojila posamezna država na prebivalca. Za lažjo predstavo, sem to predstavila v zemljevidu.
+
+```{r zemljevid.medalje, echo=FALSE, fig.align='center', fig.cap='Zemljevid 1'}
+zemljevid.medalje
+```
+
+```{r zemljevid.medalje.preb, echo=FALSE, fig.align='center', fig.cap='Zemljevid 1'}
+zemljevid.medalje.preb
+```
+
 
 ***
 
