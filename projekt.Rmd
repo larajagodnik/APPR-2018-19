@@ -103,13 +103,14 @@ Spodnji graf prikazuje število medalj posamezne države glede na lesk. V grafu 
 ```{r graf.medalje, echo=FALSE, fig.align='center', fig.cap='Graf1'}
 graf.medalje
 ```
-Iz grafa lahko razberemo, da sp na prvem mestu prepričljivo Združene države Amerike. Imajo namreč več kot dvakrat več srebrnih in zlatih medalj kot Rusija na drugem mestu, prav tako imajo prepričljivo največ tudi bronastih. Zdi se, da so na šrvih mestih države z zelo veliko prebivalci, zato si oglejmo še graf, ki prikazuje države in njihovo populacijo, če je ta večja kot 60 milijonov.
+Iz grafa lahko razberemo, da so na prvem mestu prepričljivo Združene države Amerike. Imajo namreč več kot dvakrat več srebrnih in zlatih medalj kot Rusija na drugem mestu, prav tako imajo prepričljivo največ tudi bronastih. Zdi se, da so na šrvih mestih države z zelo veliko prebivalci, zato si oglejmo še graf, ki prikazuje države in njihovo populacijo, če je ta večja kot 60 milijonov.
 
 ```{r graf.prebivalstvo, echo=FALSE, fig.align='center', fig.cap='Graf2'}
 graf.prebivalstvo
 ```
 
-Ob ogledu obeh zgornjih grafov lahko opazimo, da se kar nekaj držav ujema. To so Kitajska, bivša Sovjetska zveza, ZDA, Rusija, Nemčija, Filipini, Etiopija, Francija in Velika Britanija. Dejstvo, da so na prvih mestih po številu medalj ravno države kot so ZDA, Rusija, Kenija, Nemčija in ostale velike države torej ne preseneča. Mednje pa so se vmešale tudi manjše države, zato bi bilo bolj smiselno pogledati koliko medalj je osvojila posamezna država na prebivalca. Za lažjo predstavo, sem to predstavila v zemljevidu.
+Ob ogledu obeh zgornjih grafov lahko opazimo, da se kar nekaj držav ujema. To so Kitajska, bivša Sovjetska zveza, ZDA, Rusija, Nemčija, Filipini, Etiopija, Francija in Velika Britanija. Dejstvo, da so na prvih mestih po številu medalj ravno države kot so ZDA, Rusija, Kenija, Nemčija in ostale velike države torej ne preseneča. Po številu medalj med najuspešnejpe sodijo velike države. Mednje pa so se vmešale tudi manjše, kot na primer Jamajka, ki je na visokem petem mestu, zato bi bilo bolj smiselno pogledati, koliko medalj je osvojila posamezna država na prebivalca. Za lažjo predstavo, sem to predstavila v zemljevidu. 
+Prvi zemljevid prikazuje skupno število vseh medalj, države z najmanj medaljami so obarvane temno, tiste z največ medaljami pa svetlo modro. Drugi zemljevid prikazuje število medalj na prebivalca. Države sem razdelila v deset enakovrednih skupin. S temno modro barvo so pobarvane države, ki imajo najmanj medalj na prebivalca in s svetlo tiste ki imajo največ medalj naprebivalca.
 
 ```{r zemljevid.medalje, echo=FALSE, fig.align='center', fig.cap='Zemljevid 1'}
 zemljevid.medalje

@@ -64,7 +64,7 @@ st.medalj <- medalje %>% group_by(drzava) %>% summarise(st_medalj=sum(stevilo))
 
 #zemljevid: stevilo medalj
 zemljevid.medalje <- ggplot() + geom_polygon(data=left_join(zemljevid,st.medalj, by=c("SOVEREIGNT"="drzava")),
-                        aes(x=long, y=lat, group=group, fill=st_medalj)) +
+                        aes(x=long, y=lat, group=group, fill=st_medalj), colour="black") +
   labs(x="", y="", fill="Število Medalj") +
   ggtitle("Države glede na skupno število medalj")
 
@@ -81,15 +81,19 @@ zemljevid.medalje <- ggplot() + geom_polygon(data=left_join(zemljevid,st.medalj,
 #zemljevid: stevilo medalj na prebivalca
 medalje.na.preb <- left_join(x=st.medalj, y=populacija, by="drzava")
 medalje.na.preb$medalje_na_preb <- (medalje.na.preb$st_medalj / medalje.na.preb$prebivalstvo)
-#medalje.na.preb$odstopanje <- medalje.na.preb$medalje_na_preb - mean(medalje.na.preb$medalje_na_preb)
-medalje.na.preb$skupina <- decile(medalje.na.preb$odstopanje)
+#medalje.na.preb$odstopanje <- medalje.na.preb$medalje_na_preb - mean(medalje.na.preb$medalje_na_preb) 
+medalje.na.preb$skupina <- decile(medalje.na.preb$medalje_na_preb, decreasing = TRUE)
 
-zemljevid.medalje.preb <- ggplot() + geom_polygon(data=left_join(zemljevid,medalje.na.preb, by=c("SOVEREIGNT"="drzava")),
-                        aes(x=long, y=lat, group=group, fill=factor(skupina))) +
+barva <- colorRampPalette(c("#71bfff", "#00132f"))
+
+zemljevid.medalje.preb <- ggplot() + geom_polygon(data=left_join(zemljevid, medalje.na.preb, by=c("SOVEREIGNT"="drzava")),
+                        aes(x=long, y=lat, group=group, fill=factor(skupina)), colour="black") +
   labs(x="", y="", fill="Skupina") +
-  ggtitle("Število medalj na prebivalca po skupinah")
+  ggtitle("Število medalj na prebivalca po skupinah") +
+  scale_fill_manual(values = barva(10), na.value = "grey50")
 
 # zemljevid z zvezno barvno lestvico
+
 # ggplot() + geom_polygon(data=left_join(zemljevid, medalje.na.preb, by=c("SOVEREIGNT"="drzava")),
 #                         aes(x=long, y=lat, group=group, fill=medalje_na_preb)) +
 #   scale_fill_continuous(limits = c(0, 10000), breaks = c(100, 1000, 3000, 5000, 6250, 7500, 8750, 10000))
