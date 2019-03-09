@@ -110,16 +110,18 @@ graf.prebivalstvo
 ```
 
 Ob ogledu obeh zgornjih grafov lahko opazimo, da se kar nekaj držav ujema. To so Kitajska, bivša Sovjetska zveza, ZDA, Rusija, Nemčija, Filipini, Etiopija, Francija in Velika Britanija. Dejstvo, da so na prvih mestih po številu medalj ravno države kot so ZDA, Rusija, Kenija, Nemčija in ostale velike države torej ne preseneča. Po številu medalj med najuspešnejpe sodijo velike države. Mednje pa so se vmešale tudi manjše, kot na primer Jamajka, ki je na visokem petem mestu, zato bi bilo bolj smiselno pogledati, koliko medalj je osvojila posamezna država na prebivalca. Za lažjo predstavo, sem to predstavila v zemljevidu. 
-Prvi zemljevid prikazuje skupno število vseh medalj, države z najmanj medaljami so obarvane temno, tiste z največ medaljami pa svetlo modro. Drugi zemljevid prikazuje število medalj na prebivalca. Države sem razdelila v deset enakovrednih skupin. S temno modro barvo so pobarvane države, ki imajo najmanj medalj na prebivalca in s svetlo tiste ki imajo največ medalj naprebivalca.
+Spodnji zemljevid prikazuje skupno število vseh medalj. Države z najmanj medaljami so obarvane temno, tiste z največ medaljami pa svetlo modro.
 
 ```{r zemljevid.medalje, echo=FALSE, fig.align='center', fig.cap='Zemljevid 1'}
 zemljevid.medalje
 ```
+Združene države Amerike so, po pričakovanju, zaradi velike prednosti po številu medalj pred drugimi edine pobarvane svetlo, do Rusije in ostalih držav pa je kar precejšnji barvni preskok. Ta zemljevid primerjajmo z zemjevidom, ki prikazuje število medalj na prebivalca. Zaradiboljše preglednosti, sem sržave sem razdelila v deset enakovrednih skupin. S temno modro so obarvane države, ki imajo najmanj medalj na prebivalca in s svetlo tiste, ki jih imajo največ.
 
-```{r zemljevid.medalje.preb, echo=FALSE, fig.align='center', fig.cap='Zemljevid 1'}
+```{r zemljevid.medalje.preb, echo=FALSE, fig.align='center', fig.cap='Zemljevid 2'}
 zemljevid.medalje.preb
 ```
-
+Opazimo, da tu ZDA niso več v prvi skupini ampak približno v povprečju, kjer so v četrti in peti skupini države, ki imajo največje skupno število medalj in veliko število prebvalcev. To so poleg ZDA še na primer Rusija, Francija, Velika Britanija in Nemčija. V prvo in drugo skupino, kjer so državez največ medaljami da prebivalca pa sodijo Karibske države med katerimi je najvišje Jamajka, Surinam, Finska, Estonija in Belorusija v Evropi, Kenija v Afriki in ostale manjše države.
+Velike države so torej res med najuspešnejšimi po številu zbranih medalj, ne pa tudi po številu medalj na prebivalca. Sem bi lahko, z opombo da to velja le za nekoliko bolj razvite države, uvrstili tiste, kjer prevladuje temnopolto prebivalstvo.
 
 ***
 

@@ -64,7 +64,7 @@ st.medalj <- medalje %>% group_by(drzava) %>% summarise(st_medalj=sum(stevilo))
 
 #zemljevid: stevilo medalj
 zemljevid.medalje <- ggplot() + geom_polygon(data=left_join(zemljevid,st.medalj, by=c("SOVEREIGNT"="drzava")),
-                        aes(x=long, y=lat, group=group, fill=st_medalj), colour="black") +
+                        aes(x=long, y=lat, group=group, fill=st_medalj), colour="black", size=0.1) +
   labs(x="", y="", fill="Število Medalj") +
   ggtitle("Države glede na skupno število medalj")
 
@@ -87,7 +87,7 @@ medalje.na.preb$skupina <- decile(medalje.na.preb$medalje_na_preb, decreasing = 
 barva <- colorRampPalette(c("#71bfff", "#00132f"))
 
 zemljevid.medalje.preb <- ggplot() + geom_polygon(data=left_join(zemljevid, medalje.na.preb, by=c("SOVEREIGNT"="drzava")),
-                        aes(x=long, y=lat, group=group, fill=factor(skupina)), colour="black") +
+                        aes(x=long, y=lat, group=group, fill=factor(skupina)), colour="black", size=0.1) +
   labs(x="", y="", fill="Skupina") +
   ggtitle("Število medalj na prebivalca po skupinah") +
   scale_fill_manual(values = barva(10), na.value = "grey50")
@@ -110,3 +110,12 @@ zemljevid.medalje.preb <- ggplot() + geom_polygon(data=left_join(zemljevid, meda
 # ggplot() + geom_polygon(data=left_join(zemljevid, cluster5, by=c("SOVEREIGNT"="drzava")),
 #                         aes(x=long, y=lat, group=group,
 #                             fill=factor(groups)))
+
+
+
+
+
+
+
+
+

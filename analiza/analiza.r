@@ -19,7 +19,9 @@ library(forcats)
 # #defineras rezultati kot dataframe tukaj bojo koncno rezultati
 # rezultati <- data.frame()
 # 
-# #verjetno ne bom vkljucila
+#
+# !!!! verjetno ne bom vkljucila !!!!
+#
 # #gres cez vse discipline, za vsako disciplino zracunas relativno spremembo in potem das vse v tabelo rezultati 🙂
 # for(i in 1:length(t1)){
 #   for(g in t1[i]){
