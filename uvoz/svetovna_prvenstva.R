@@ -62,8 +62,8 @@ stolpci <- c("disciplina", "tekmovalec1", "rezultat1", "tekmovalec2", "rezultat2
              "tekmovalec3", "rezultat3", "leto")
 names(zenske) <- stolpci
 names(moski) <- stolpci
-vsi.rezultati <- rbind(zenske %>% mutate(spol="Ženski"),
-                       moski %>% mutate(spol="Moški")) %>%
+vsi.rezultati <- rbind(zenske %>% mutate(spol="Zenski"),
+                       moski %>% mutate(spol="Moski")) %>%
   transmute(disciplina, leto, spol,
             `1`=paste0(tekmovalec1, "_", rezultat1),
             `2`=paste0(tekmovalec2, "_", rezultat2),

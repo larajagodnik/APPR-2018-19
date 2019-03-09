@@ -38,7 +38,7 @@ library(forcats)
 
 #sprememba glede na leto 2005
 #filtreras rezultate po zenskah in 1 mestu
-t1 <- rezultati.tekaske %>% filter(spol=="Ženski", uvrstitev==1)
+t1 <- rezultati.tekaske %>% filter(spol=="Zenski", uvrstitev==1)
 
 #razdelis rezultate po disciplinah
 t1 <- split(t1, t1$disciplina)    
@@ -60,3 +60,21 @@ graf.Ztek.mark.05 <- ggplot(data=rezultati, aes(x=factor(leto), y=sprememba, gro
   labs(x="Leto", y="Sprememba glede na 2005", color="Disciplina") +
   ggtitle("Sprememba rezultatov tekaških disciplin glede na leto 2005")
 
+
+#mozni grafi
+#=========================================================================================================
+
+# graf reakcijskih casou prvouvrscenih v posameznih disciplinah za moske in zenske
+ggplot(data=sprint %>% filter(POS==1), mapping = aes(x=factor(leto), y=get("Reaction Time"), group=disciplina, color=disciplina)) +
+  geom_line() +
+  labs(x="Leto", y="Reakcijski čas", color="Disciplina") +
+  facet_wrap(spol~., ncol=2) +
+  theme(axis.text.x = element_text(angle = 90, size = 8))
+
+# poskus2
+graf.sprint.react <- ggplot(data=sprint %>% filter(POS<=3), mapping = aes(x=factor(leto), y=get("Reaction Time"), group=POS, color=factor(POS))) +
+  geom_line() +
+  labs(x="Leto", y="Reakcijski čas", color="Uvrstitev") +
+  ggtitle("Reakcijski čas prvih treh uvrščenih") +
+  facet_grid(disciplina~spol) +
+  theme(axis.text.x = element_text(angle = 90, size = 8)) 
