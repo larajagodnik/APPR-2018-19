@@ -44,14 +44,14 @@ t1 <- rezultati.tekaske %>% filter(spol=="Zenski", uvrstitev==1)
 #razdelis rezultate po disciplinah
 t1 <- split(t1, t1$disciplina)    
 
-rezultati <- data.frame()
+rezultati1 <- data.frame()
 
 #gres cez vse discipline, za vsako disciplino zracunas spremembo glede na 2005 in potem das vse v tabelo rezultati
 for(i in 1:length(t1)){
-  for(g in t1[i]){
-    sprememba <- g$rezultat / g$rezultat[length(g$rezultat)]
-    g <- as.data.frame(cbind(g, sprememba))
-    rezultati <- rbind(rezultati, g)
+  for(g1 in t1[i]){
+    sprememba <- g1$rezultat / g1$rezultat[length(g1$rezultat)]
+    g1 <- as.data.frame(cbind(g1, sprememba))
+    rezultati1 <- rbind(rezultati1, g1)
   }
 }
 
@@ -62,30 +62,86 @@ graf.Ztek.mark <- ggplot(data=rezultati, aes(x=factor(leto), y=sprememba, group=
   ggtitle("Sprememba rezultatov tekaških disciplin pri ženskah glede na leto 2005")
 
 
-#moski
+#moski tekaske
 t2 <- rezultati.tekaske %>% filter(spol=="Moski", uvrstitev==1)
 
 #razdelis rezultate po disciplinah
 t2 <- split(t2, t2$disciplina)    
 
-rezultati1 <- data.frame()
+rezultati2 <- data.frame()
 
 #gres cez vse discipline, za vsako disciplino zracunas spremembo glede na 2005 in potem das vse v tabelo rezultati
 for(i in 1:length(t2)){
-  for(g1 in t2[i]){
-    sprememba <- g1$rezultat / g1$rezultat[length(g$rezultat)]
-    g1 <- as.data.frame(cbind(g1, sprememba))
-    rezultati1 <- rbind(rezultati1, g1)
+  for(g2 in t2[i]){
+    sprememba <- g2$rezultat / g2$rezultat[length(g2$rezultat)]
+    g2 <- as.data.frame(cbind(g2, sprememba))
+    rezultati2 <- rbind(rezultati2, g2)
   }
 }
 
 #graf sprememba glede na 2005
-graf.Mtek.mark <- ggplot(data=rezultati1, aes(x=factor(leto), y=sprememba, group=disciplina, color=disciplina)) +
+graf.Mtek.mark <- ggplot(data=rezultati2, aes(x=factor(leto), y=sprememba, group=disciplina, color=disciplina)) +
   geom_line(size=2) +
   labs(x="Leto", y="Sprememba glede na 2005", color="Disciplina") +
   ggtitle("Sprememba rezultatov tekaških disciplin pri moških glede na leto 2005")
 
 
+#zenske tehnicne
+t3 <- rezultati.tehnicne %>% filter(spol=="Zenski", uvrstitev==1)
+
+#razdelis rezultate po disciplinah
+t3 <- split(t3, t3$disciplina)    
+
+rezultati3 <- data.frame()
+
+#gres cez vse discipline, za vsako disciplino zracunas spremembo glede na 2005 in potem das vse v tabelo rezultati
+for(i in 1:length(t3)){
+  for(g3 in t3[i]){
+    sprememba <- g3$rezultat / g3$rezultat[length(g3$rezultat)]
+    g3 <- as.data.frame(cbind(g3, sprememba))
+    rezultati3 <- rbind(rezultati3, g3)
+  }
+}
+
+#graf sprememba glede na 2005
+graf.Zteh.mark <- ggplot(data=rezultati3, aes(x=factor(leto), y=sprememba, group=disciplina, color=disciplina)) +
+  geom_line(size=2) +
+  labs(x="Leto", y="Sprememba glede na 2005", color="Disciplina") +
+  ggtitle("Sprememba rezultatov tehnicnih disciplin pri zenskah glede na leto 2005")
+
+
+
+#moski tehnicne
+t4 <- rezultati.tehnicne %>% filter(spol=="Moski", uvrstitev==1)
+
+#razdelis rezultate po disciplinah
+t4 <- split(t4, t4$disciplina)    
+
+rezultati4 <- data.frame()
+
+#gres cez vse discipline, za vsako disciplino zracunas spremembo glede na 2005 in potem das vse v tabelo rezultati
+for(i in 1:length(t4)){
+  for(g4 in t4[i]){
+    sprememba <- g4$rezultat / g4$rezultat[length(g4$rezultat)]
+    g4 <- as.data.frame(cbind(g4, sprememba))
+    rezultati4 <- rbind(rezultati4, g4)
+  }
+}
+
+#graf sprememba glede na 2005
+graf.Zteh.mark <- ggplot(data=rezultati4, aes(x=factor(leto), y=sprememba, group=disciplina, color=disciplina)) +
+  geom_line(size=2) +
+  labs(x="Leto", y="Sprememba glede na 2005", color="Disciplina") +
+  ggtitle("Sprememba rezultatov tehnicnih disciplin pri moških glede na leto 2005")
+
+
+#tabela vseh sprememb skupaj
+rezultati1$kategorija <- "Tekaske"
+rezultati2$kategorija <- "Tekaske"
+rezultati3$kategorija <- "Tehnicne"
+rezultati4$kategorija <- "Tehnicne"
+
+rezultati <- bind_rows(rezultati1, rezultati2, rezultati3, rezultati4)
 
 #mozni grafi
 #=========================================================================================================
