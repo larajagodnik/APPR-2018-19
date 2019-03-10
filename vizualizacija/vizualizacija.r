@@ -15,21 +15,6 @@ library(StatMeasures)
 
 
 
-# graf reakcijskih casou prvouvrscenih v posameznih disciplinah za moske in zenske
-ggplot(data=sprint %>% filter(POS==1), mapping = aes(x=factor(leto), y=get("Reaction Time"), group=disciplina, color=disciplina)) +
-  geom_line() +
-  labs(x="Leto", y="Reakcijski čas", color="Disciplina") +
-  facet_wrap(spol~., ncol=2) +
-  theme(axis.text.x = element_text(angle = 90, size = 8))
-
-# poskus2
-graf.sprint.react <- ggplot(data=sprint %>% filter(POS<=3), mapping = aes(x=factor(leto), y=get("Reaction Time"), group=POS, color=factor(POS))) +
-  geom_line() +
-  labs(x="Leto", y="Reakcijski čas", color="Uvrstitev") +
-  ggtitle("Reakcijski čas prvih treh uvrščenih") +
-  facet_grid(disciplina~spol) +
-  theme(axis.text.x = element_text(angle = 90, size = 8)) 
-
 
 #stolpicni graf stevilo medalj po lesku
 graf.medalje <- ggplot(data=medalje %>% filter(stevilo>=8), mapping = aes(x=reorder(drzava, -stevilo), y=stevilo, fill=factor(lesk))) +
