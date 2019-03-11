@@ -66,19 +66,32 @@ library(shiny)
 
 #=====================================================================================
 shinyServer(function(input, output) {
+  
+  t <- rezultati
+  
   output$graf_react <- renderPlot({
     main <- "Reakcijski cas"
-    if (!is.null(input$disciplina) && input$disciplina %in% sprint$disciplina) {
+    if (!is.null(input$disciplina) && input$disciplina %in% rezultati$disciplina) {
       t <- rezultati %>% filter(disciplina== input$disciplina)
       if (!is.null(input$spol) && input$spol %in% rezultati$spol) {
         t <- t %>% filter(spol== input$spol) 
       }
       main <- paste(main," ", input$disciplina)
     } else {
-      if (!is.null(input$spol) && input$spol %in% sprint$spol) {
+      if (!is.null(input$spol) && input$spol %in% rezultati$spol) {
         t <- rezultati %>% filter(spol== input$spol) 
+        output$disciplina <- renderUI(
+          selectInput("disciplina", label="Izberite disciplino",
+                      choices=c("Vse", t$disciplina  ))
+        )
+        
       } else {
         t <- rezultati
+        output$disciplina <- renderUI(
+          selectInput("disciplina", label="Izberite disciplino",
+                      choices=c("Vse", t$disciplina  ))
+        )
+        
       }
       
     }
@@ -95,11 +108,9 @@ shinyServer(function(input, output) {
   )
   output$disciplina <- renderUI(
     selectInput("disciplina", label="Izberite disciplino",
-                choices=c("Vse", rezultati$disciplina))
+                choices=c("Vse", t$disciplina  ))
   )
   
   
   
 })
-
-

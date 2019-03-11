@@ -56,7 +56,7 @@ for(i in 1:length(t1)){
 }
 
 #graf sprememba glede na 2005
-graf.Ztek.mark <- ggplot(data=rezultati, aes(x=factor(leto), y=sprememba, group=disciplina, color=disciplina)) +
+graf.Ztek.mark <- ggplot(data=rezultati1, aes(x=factor(leto), y=sprememba, group=disciplina, color=disciplina)) +
   geom_line(size=2) +
   labs(x="Leto", y="Sprememba glede na 2005", color="Disciplina") +
   ggtitle("Sprememba rezultatov tekaških disciplin pri ženskah glede na leto 2005")
@@ -161,4 +161,64 @@ graf.sprint.react <- ggplot(data=sprint %>% filter(POS<=3), mapping = aes(x=leto
   ggtitle("Reakcijski čas prvih treh uvrščenih") +
   scale_x_continuous(breaks=seq(1999,2017,2)) +
   facet_grid(disciplina~spol) +
+  theme(axis.text.x = element_text(angle = 90, size = 8))
+
+
+#=======================================================================================================
+#regresija
+sprint1 <- sprint %>% filter(spol=="F", POS==1, disciplina=="100 m")
+sprint1 <- sprint1[-c(1,2,3,5,7,8)]
+
+prileganje <- lm(data = sprint1, MARK ~ leto)
+leta <- data.frame(leto=seq(2019, 2023, 2))
+napoved <- mutate(leta, MARK=predict(prileganje, leta))
+
+ggplot(sprint1, aes(x=leto, y=MARK)) +
+  geom_point(data=napoved, aes(x=leto, y=MARK), color='red', size=2) +
+  geom_point() +
+  geom_smooth(method=lm, fullrange = TRUE, color = 'blue') +
+  labs(title='Napoved števila smrti v prometu v naslednjih letih', y="Število") +
+  scale_x_continuous(breaks=seq(1999,2023,2))
+
+sprint2 <- sprint %>% filter(POS==1)
+sprint2 <- sprint2[-c(1,2,3,5)]
+
+s1z <- sprint %>% filter(POS==1, disciplina=="100 m", spol=="F")
+s2z <- sprint %>% filter(POS==1, disciplina=="200 m", spol=="F")
+s4z <- sprint %>% filter(POS==1, disciplina=="400 m", spol=="F")
+s1m <- sprint %>% filter(POS==1, disciplina=="100 m", spol=="M")
+s2m <- sprint %>% filter(POS==1, disciplina=="200 m", spol=="M")
+s4m <- sprint %>% filter(POS==1, disciplina=="400 m", spol=="M")
+
+p1z <- lm(data = s1z, MARK ~ leto)
+p2z <- lm(data = s2z, MARK ~ leto)
+p4z <- lm(data = s4z, MARK ~ leto)
+p1m <- lm(data = s1m, MARK ~ leto)
+p2m <- lm(data = s2m, MARK ~ leto)
+p4m <- lm(data = s4m, MARK ~ leto)
+
+leta <- data.frame(leto=seq(2019, 2023, 2))
+
+n1z <- mutate(leta, MARK=predict(p1z, leta), disciplina="100 m", spol = "F")
+n2z <- mutate(leta, MARK=predict(p2z, leta), disciplina="200 m", spol = "F")
+n4z <- mutate(leta, MARK=predict(p4z, leta), disciplina="400 m", spol = "F")
+n1m <- mutate(leta, MARK=predict(p1m, leta), disciplina="100 m", spol = "M")
+n2m <- mutate(leta, MARK=predict(p2m, leta), disciplina="200 m", spol = "M")
+n4m <- mutate(leta, MARK=predict(p4m, leta), disciplina="400 m", spol = "M")
+
+napoved <- bind_rows(n1z, n2z, n4z, n1m, n2m, n4m)
+
+prileganje2 <- lm(data = sprint2 %>% group_by(disciplina), MARK ~ leto)
+leta <- data.frame(leto=seq(2019, 2023, 2))
+napoved <- mutate(leta, MARK=predict(prileganje2, leta))
+
+
+ggplot(data=sprint %>% filter(POS==1), mapping = aes(x=leto, y=MARK)) +
+  geom_smooth(method=lm, fullrange=TRUE, color="black") +
+  geom_point(color="blue") +
+  geom_point(data=napoved, mapping=aes(x=leto, y=MARK), color="red") +
+  labs(x="Leto", y="Čas") +
+  ggtitle("Napoved rezultatov v disciplinah 100, 200 in 400 m") +
+  #scale_x_continuous(breaks=seq(1999,2023,2)) +
+  facet_wrap(spol ~ disciplina, scales = "free_y") +
   theme(axis.text.x = element_text(angle = 90, size = 8))
