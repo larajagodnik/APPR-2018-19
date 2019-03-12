@@ -5,39 +5,11 @@ library(StatMeasures)
 library(rowr)
 library(forcats)
 
-#
-#razvoj tekaskih disciplin zenske
-#
-
-# relativna sprememba
-#filtreras rezultate po zenskah in 1 mestu
-# t1 <- rezultati.tekaske %>% filter(spol=="Ženski", uvrstitev==1)
-#
-# #razdelis rezultate po disciplinah
-# t1 <- split(t1, t1$disciplina)    
-# 
-# #defineras rezultati kot dataframe tukaj bojo koncno rezultati
-# rezultati <- data.frame()
-# 
-#
-# !!!! verjetno ne bom vkljucila !!!!
-#
-# #gres cez vse discipline, za vsako disciplino zracunas relativno spremembo in potem das vse v tabelo rezultati 🙂
-# for(i in 1:length(t1)){
-#   for(g in t1[i]){
-#     sprememba <- rev(diff(rev(g$rezultat))/rev(g$rezultat)[-length(rev(g$rezultat))]*100)
-#     g <- as.data.frame(cbind.fill(g, sprememba, fill=NA))
-#     rezultati <- rbind(rezultati, g)
-#   }
-# }
-# 
-# #graf relativna sprememba
-# graf.tek.mark.pct <- ggplot(data=rezultati, aes(x=factor(leto), y=object, group=disciplina, color=disciplina)) + geom_line() + labs(y="Relativna sprememba rezultata")
-
-
+#==============================================================================================================
+#razvoj tekaskih disciplin
 
 #sprememba glede na leto 2005
-#zenske
+##zenske
 #filtreras rezultate po zenskah in 1 mestu
 t1 <- rezultati.tekaske %>% filter(spol=="Zenski", uvrstitev==1)
 
@@ -62,7 +34,8 @@ graf.Ztek.mark <- ggplot(data=rezultati1, aes(x=factor(leto), y=sprememba, group
   ggtitle("Sprememba rezultatov tekaških disciplin pri ženskah glede na leto 2005")
 
 
-#moski tekaske
+#
+##moski tekaske
 t2 <- rezultati.tekaske %>% filter(spol=="Moski", uvrstitev==1)
 
 #razdelis rezultate po disciplinah
@@ -79,14 +52,9 @@ for(i in 1:length(t2)){
   }
 }
 
-#graf sprememba glede na 2005
-graf.Mtek.mark <- ggplot(data=rezultati2, aes(x=factor(leto), y=sprememba, group=disciplina, color=disciplina)) +
-  geom_line(size=2) +
-  labs(x="Leto", y="Sprememba glede na 2005", color="Disciplina") +
-  ggtitle("Sprememba rezultatov tekaških disciplin pri moških glede na leto 2005")
 
-
-#zenske tehnicne
+#
+##zenske tehnicne
 t3 <- rezultati.tehnicne %>% filter(spol=="Zenski", uvrstitev==1)
 
 #razdelis rezultate po disciplinah
@@ -103,15 +71,9 @@ for(i in 1:length(t3)){
   }
 }
 
-#graf sprememba glede na 2005
-graf.Zteh.mark <- ggplot(data=rezultati3, aes(x=factor(leto), y=sprememba, group=disciplina, color=disciplina)) +
-  geom_line(size=2) +
-  labs(x="Leto", y="Sprememba glede na 2005", color="Disciplina") +
-  ggtitle("Sprememba rezultatov tehnicnih disciplin pri zenskah glede na leto 2005")
 
-
-
-#moski tehnicne
+#
+##moski tehnicne
 t4 <- rezultati.tehnicne %>% filter(spol=="Moski", uvrstitev==1)
 
 #razdelis rezultate po disciplinah
@@ -128,11 +90,6 @@ for(i in 1:length(t4)){
   }
 }
 
-#graf sprememba glede na 2005
-graf.Zteh.mark <- ggplot(data=rezultati4, aes(x=factor(leto), y=sprememba, group=disciplina, color=disciplina)) +
-  geom_line(size=2) +
-  labs(x="Leto", y="Sprememba glede na 2005", color="Disciplina") +
-  ggtitle("Sprememba rezultatov tehnicnih disciplin pri moških glede na leto 2005")
 
 
 #tabela vseh sprememb skupaj
@@ -143,11 +100,12 @@ rezultati4$kategorija <- "Tehnicne"
 
 rezultati <- bind_rows(rezultati1, rezultati2, rezultati3, rezultati4)
 
-#mozni grafi
+
 #=========================================================================================================
+#reakcijski časi
 
 # graf reakcijskih casou prvouvrscenih v posameznih disciplinah za moske in zenske
-ggplot(data=sprint %>% filter(POS==1), mapping = aes(x=factor(leto), y=get("Reaction Time"), group=disciplina, color=disciplina)) +
+graf.react <- ggplot(data=sprint %>% filter(POS==1), mapping = aes(x=factor(leto), y=get("Reaction Time"), group=disciplina, color=disciplina)) +
   geom_line() +
   labs(x="Leto", y="Reakcijski čas", color="Disciplina") +
   facet_wrap(spol~., ncol=2) +
@@ -160,28 +118,12 @@ graf.sprint.react <- ggplot(data=sprint %>% filter(POS<=3), mapping = aes(x=leto
   labs(x="Leto", y="Reakcijski čas", color="Uvrstitev") +
   ggtitle("Reakcijski čas prvih treh uvrščenih") +
   scale_x_continuous(breaks=seq(1999,2017,2)) +
-  facet_grid(disciplina~spol) +
+  facet_grid(spol~disciplina) +
   theme(axis.text.x = element_text(angle = 90, size = 8))
 
 
 #=======================================================================================================
 #regresija
-sprint1 <- sprint %>% filter(spol=="F", POS==1, disciplina=="100 m")
-sprint1 <- sprint1[-c(1,2,3,5,7,8)]
-
-prileganje <- lm(data = sprint1, MARK ~ leto)
-leta <- data.frame(leto=seq(2019, 2023, 2))
-napoved <- mutate(leta, MARK=predict(prileganje, leta))
-
-ggplot(sprint1, aes(x=leto, y=MARK)) +
-  geom_point(data=napoved, aes(x=leto, y=MARK), color='red', size=2) +
-  geom_point() +
-  geom_smooth(method=lm, fullrange = TRUE, color = 'blue') +
-  labs(title='Napoved števila smrti v prometu v naslednjih letih', y="Število") +
-  scale_x_continuous(breaks=seq(1999,2023,2))
-
-sprint2 <- sprint %>% filter(POS==1)
-sprint2 <- sprint2[-c(1,2,3,5)]
 
 s1z <- sprint %>% filter(POS==1, disciplina=="100 m", spol=="F")
 s2z <- sprint %>% filter(POS==1, disciplina=="200 m", spol=="F")
@@ -207,10 +149,6 @@ n2m <- mutate(leta, MARK=predict(p2m, leta), disciplina="200 m", spol = "M")
 n4m <- mutate(leta, MARK=predict(p4m, leta), disciplina="400 m", spol = "M")
 
 napoved <- bind_rows(n1z, n2z, n4z, n1m, n2m, n4m)
-
-prileganje2 <- lm(data = sprint2 %>% group_by(disciplina), MARK ~ leto)
-leta <- data.frame(leto=seq(2019, 2023, 2))
-napoved <- mutate(leta, MARK=predict(prileganje2, leta))
 
 
 ggplot(data=sprint %>% filter(POS==1), mapping = aes(x=leto, y=MARK)) +

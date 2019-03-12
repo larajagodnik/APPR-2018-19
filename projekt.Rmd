@@ -141,25 +141,14 @@ graf.Ztek.mark
 ```
 Najprej sem si ogledala, kako so se skozi čas spreminjali rezultati tekaških disciplin pri ženskah. Opazimo lahko, da se je rezultat najmanj spreminjal pri 400 m in 400 m ovire. V splošnem lahko, z nekaj odstopanji, rečemo, da se je rezultat od leta 2005 do 2017 izboljšal pri teku na dolge proge in hoji, nekoliko slabši glede na leto 2005 pa je pri šprinterskih disciplinah. Velik vpliv na rezultat pri šprintu torej v disciplinah 100, 200 in 400 m ima reakcijski čas, zato si v naslednjih dveh grafih oglejmo, kako se je skozi čas spreminjal reakcijsi čas prvouvrščenega tekmovalca, posebej za moške in ženske.
 
-```{r graf.reakcijski.cas, echo=FALSE, fig.align='center', fig.cap='Graf4'}
-ggplot(data=sprint %>% filter(POS==1), mapping = aes(x=factor(leto), y=get("Reaction Time"), group=disciplina, color=disciplina)) +
-  geom_line() +
-  labs(x="Leto", y="Reakcijski čas", color="Disciplina") +
-  facet_wrap(spol~., ncol=2) +
-  theme(axis.text.x = element_text(angle = 90, size = 8))
+```{r graf.react echo=FALSE, fig.align='center', fig.cap='Graf4'}
+graf.react
 ```
 Po prčakovanju je v splošnem reakcijski čas najboljši v teku na 100 m in najslabši v teku na 400 m, kjer je nihal skoraj enakomerno. Opazimo lahko, da reakcijski čas na rezultat ne vpliva veliko, saj boljši reakcijski čas ne zadostuje za boljši rezultat.V teku na 100 in 200 m, pa v nekaterih letih res boljši reakcijski čas pomeni tudi boljši rezultat a to ne velja vedno. Podoben trend spreminjanja reakcijskega časa je tudi pri moških, zato si bom to pogledala malo podrobneje.
 Spodnji grafi prikazujejo reakcijske čase prvih treh uvrščenih v posamezni disciplini, posebej za moške in ženske. Črna črta predstavlja najboljše prileganje vsem reakcijskim časom.
 
 ```{r graf.sprint.react, echo=FALSE, fig.align='center', fig.cap='Graf5'}
-ggplot(data=sprint %>% filter(POS<=3), mapping = aes(x=leto, y=get("Reaction Time"))) +
-  geom_smooth(method="lm", formula = y~poly(x,6), se=FALSE, color="black", size=1.5) +
-  geom_point(aes(colour=factor(POS),group=POS), size=1.5) +
-  labs(x="Leto", y="Reakcijski čas", color="Uvrstitev") +
-  ggtitle("Reakcijski čas prvih treh uvrščenih") +
-  scale_x_continuous(breaks=seq(1999,2017,2)) +
-  facet_grid(spol~disciplina) +
-  theme(axis.text.x = element_text(angle = 90, size = 8))
+graf.sprint.react
 ```
 Najprej opazimo, da imajo moški v splošnem boljše reakcijske čase kot ženske, časi prvih treh pa so pri moških tudi precej bolj izenačeni in z izjemo najdaljše discipline ni večjih odstopanj. Kot sem pričakovala, so reakcijski časi najboljši v teku na 100 m in najslabši v najdaljši šprinterski disciplini.
 Opazimo lahko, da se je reakcijski čas z izjemo zadnjih nekaj let podaljševal, trend spreminjanja pa je pri vseh disciplinah podoben. To lahko pripišemo spremembi atletskih pravil. Do leta 2003 je bil namreč vsak tekmovalec diskvalificiran šele po drugem prehitrem startu. V letu 2003, so se reakcijski časi podaljšali, saj je bil ob ponovitvi starta diskvalificiran vsak, ki je prehitro startal, ne glede na to, če je bil to njegov prvi ali drugi napačen start. To pravilo je veljalo do vključno leta 2009. Po tem letu je spet opaziti podaljšanje reakcijskega časa. Tokrat je ta sprememba bolj opazna, saj je bila tudi  zaostritev hujša, tekmovalec je bil namreč diskvalificiran že ob prvem prehitrem startu. V zadnjih nekaj letih je spet prišlo do izboljšanja, saj so se tekmovalci verjetno privadili na ostrejše pogoje na tekmovanjih.
@@ -169,9 +158,9 @@ ggplot(data=sprint %>% filter(POS==1), mapping = aes(x=leto, y=MARK)) +
   geom_smooth(method=lm, fullrange=TRUE, color="black") +
   geom_point(color="blue") +
   geom_point(data=napoved, mapping=aes(x=leto, y=MARK), color="red") +
-  labs(x="Leto", y="Reakcijski čas", color="Uvrstitev") +
-  ggtitle("Reakcijski čas prvih treh uvrščenih") +
-  scale_x_continuous(breaks=seq(1999,2023,2)) +
+  labs(x="Leto", y="Čas") +
+  ggtitle("Napoved rezultatov v disciplinah 100, 200 in 400 m") +
+  #scale_x_continuous(breaks=seq(1999,2023,2)) +
   facet_wrap(spol ~ disciplina, scales = "free_y") +
   theme(axis.text.x = element_text(angle = 90, size = 8))
 ```
