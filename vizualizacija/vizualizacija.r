@@ -45,7 +45,7 @@ st.medalj <- medalje %>% group_by(drzava) %>% summarise(st_medalj=sum(stevilo))
 #zemljevid stevilo medalj
 zemljevid.medalje <- ggplot() + geom_polygon(data=left_join(zemljevid,st.medalj, by=c("SOVEREIGNT"="drzava")),
                         aes(x=long, y=lat, group=group, fill=st_medalj), colour="black", size=0.1) +
-  labs(x="", y="", fill="Število Medalj") +
+  labs(x="", y="", fill="Število medalj") +
   ggtitle("Države glede na skupno število medalj")
 
 

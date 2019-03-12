@@ -108,9 +108,11 @@ rezultati <- bind_rows(rezultati1, rezultati2, rezultati3, rezultati4)
 graf.react <- ggplot(data=sprint %>% filter(POS==1), mapping = aes(x=factor(leto), y=get("Reaction Time"), group=disciplina, color=disciplina)) +
   geom_line() +
   labs(x="Leto", y="Reakcijski čas", color="Disciplina") +
-  facet_wrap(spol~., ncol=2) +
+  facet_wrap(spol~., ncol=2, labeller = as_labeller(c("F" = "Ženske", "M" = "Moški"))) +
   theme(axis.text.x = element_text(angle = 90, size = 8))
 
+# graf reakcijskih časov prvih treh uvrščenih za vsako disciplino in spol
+oznake <- c("M" = "Moški", "F" = "Ženske", "100 m" = "100 m", "200 m" = "200 m", "400 m" = "400 m")
 # poskus2
 graf.sprint.react <- ggplot(data=sprint %>% filter(POS<=3), mapping = aes(x=leto, y=get("Reaction Time"))) +
   geom_smooth(method="loess",se=FALSE, color="black", size=2) +
@@ -118,8 +120,19 @@ graf.sprint.react <- ggplot(data=sprint %>% filter(POS<=3), mapping = aes(x=leto
   labs(x="Leto", y="Reakcijski čas", color="Uvrstitev") +
   ggtitle("Reakcijski čas prvih treh uvrščenih") +
   scale_x_continuous(breaks=seq(1999,2017,2)) +
-  facet_grid(spol~disciplina) +
+  facet_grid(spol~disciplina, labeller = as_labeller(oznake)) +
   theme(axis.text.x = element_text(angle = 90, size = 8))
+
+#kakšen delež predstavlja reakcijski čas v doseženem času prvouvrščenega tekmovalca
+ggplot(data = sprint %>% filter(POS==1), mapping = aes(x=leto, y=delez, group=disciplina, color=disciplina)) +
+  geom_line(size=1.5) +
+  facet_wrap(spol~., labeller = as_labeller(c("F" = "Ženske", "M" = "Moški")))
+
+graf.delez.react <- ggplot(data = sprint %>% filter(POS<=3), mapping = aes(x=leto, y=delez, group=POS, color=factor(POS))) +
+  geom_line() +
+  labs(x="Leto", y="Delež", color="Uvrstitev") +
+  ggtitle("Delež reakcijskega časa v času tekmovalca") +
+  facet_wrap(spol ~ disciplina, scales = "free_y", labeller = as_labeller(oznake))
 
 
 #=======================================================================================================
@@ -150,13 +163,11 @@ n4m <- mutate(leta, MARK=predict(p4m, leta), disciplina="400 m", spol = "M")
 
 napoved <- bind_rows(n1z, n2z, n4z, n1m, n2m, n4m)
 
-
-ggplot(data=sprint %>% filter(POS==1), mapping = aes(x=leto, y=MARK)) +
+regresija <- ggplot(data=sprint %>% filter(POS==1), mapping = aes(x=leto, y=MARK)) +
   geom_smooth(method=lm, fullrange=TRUE, color="black") +
   geom_point(color="blue") +
   geom_point(data=napoved, mapping=aes(x=leto, y=MARK), color="red") +
   labs(x="Leto", y="Čas") +
   ggtitle("Napoved rezultatov v disciplinah 100, 200 in 400 m") +
-  #scale_x_continuous(breaks=seq(1999,2023,2)) +
-  facet_wrap(spol ~ disciplina, scales = "free_y") +
+  facet_wrap(spol ~ disciplina, scales = "free_y", labeller = as_labeller(oznake)) +
   theme(axis.text.x = element_text(angle = 90, size = 8))
