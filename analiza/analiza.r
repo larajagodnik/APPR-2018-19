@@ -31,7 +31,7 @@ for(i in 1:length(t1)){
 graf.Ztek.mark <- ggplot(data=rezultati1, aes(x=factor(leto), y=sprememba, group=disciplina, color=disciplina)) +
   geom_line(size=2) +
   labs(x="Leto", y="Sprememba glede na 2005", color="Disciplina") +
-  ggtitle("Sprememba rezultatov tekaških disciplin pri ženskah glede na leto 2005")
+  ggtitle("Sprememba rezultatov tekaških disciplin pri ženskah\nglede na leto 2005")
 
 
 #
@@ -108,6 +108,7 @@ rezultati <- bind_rows(rezultati1, rezultati2, rezultati3, rezultati4)
 graf.react <- ggplot(data=sprint %>% filter(POS==1), mapping = aes(x=factor(leto), y=get("Reaction Time"), group=disciplina, color=disciplina)) +
   geom_line() +
   labs(x="Leto", y="Reakcijski čas", color="Disciplina") +
+  ggtitle("Reakcijski čas prvouvrščenega iz vsake discipline")
   facet_wrap(spol~., ncol=2, labeller = as_labeller(c("F" = "Ženske", "M" = "Moški"))) +
   theme(axis.text.x = element_text(angle = 90, size = 8))
 
@@ -122,17 +123,6 @@ graf.sprint.react <- ggplot(data=sprint %>% filter(POS<=3), mapping = aes(x=leto
   scale_x_continuous(breaks=seq(1999,2017,2)) +
   facet_grid(spol~disciplina, labeller = as_labeller(oznake)) +
   theme(axis.text.x = element_text(angle = 90, size = 8))
-
-#kakšen delež predstavlja reakcijski čas v doseženem času prvouvrščenega tekmovalca
-ggplot(data = sprint %>% filter(POS==1), mapping = aes(x=leto, y=delez, group=disciplina, color=disciplina)) +
-  geom_line(size=1.5) +
-  facet_wrap(spol~., labeller = as_labeller(c("F" = "Ženske", "M" = "Moški")))
-
-graf.delez.react <- ggplot(data = sprint %>% filter(POS<=3), mapping = aes(x=leto, y=delez, group=POS, color=factor(POS))) +
-  geom_line() +
-  labs(x="Leto", y="Delež", color="Uvrstitev") +
-  ggtitle("Delež reakcijskega časa v času tekmovalca") +
-  facet_wrap(spol ~ disciplina, scales = "free_y", labeller = as_labeller(oznake))
 
 
 #=======================================================================================================
