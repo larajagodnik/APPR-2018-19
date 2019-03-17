@@ -12,7 +12,7 @@ library(StatMeasures)
 
 
 #stolpicni graf stevilo medalj po lesku
-graf.medalje <- ggplot(data=medalje %>% filter(stevilo>=8), mapping = aes(x=reorder(drzava, -stevilo), y=stevilo, fill=factor(lesk))) +
+graf.medalje <- ggplot(data = medalje %>% filter(stevilo>=8), mapping = aes(x=reorder(drzava, -stevilo), y=stevilo, fill=factor(lesk))) +
   labs(x="Država", y="Število") +
   scale_fill_manual("Lesk", values = c("zlato" = "gold", "srebro" = "gray50", "bron" = "peru")) +
   ggtitle("Število medalj posamezne države po lesku") +
@@ -20,7 +20,7 @@ graf.medalje <- ggplot(data=medalje %>% filter(stevilo>=8), mapping = aes(x=reor
   theme(axis.text.x = element_text(angle = 90, size = 8))
 
 #graf povprecnega stevila prebivalcev
-graf.prebivalstvo <- ggplot(data=populacija %>% filter(prebivalstvo>=60000000),
+graf.prebivalstvo <- ggplot(data = populacija %>% filter(prebivalstvo>=60000000),
                             aes(x=reorder(drzava, -prebivalstvo), y=prebivalstvo)) +
   labs(x="Država", y="Število prebivalcev") +
   ggtitle("Prebivalstvo") +
@@ -57,7 +57,7 @@ medalje.na.preb$skupina <- decile(medalje.na.preb$medalje_na_preb, decreasing = 
 
 barva <- colorRampPalette(c("#71bfff", "#00132f"))
 
-zemljevid.medalje.preb <- ggplot() + geom_polygon(data=left_join(zemljevid, medalje.na.preb, by=c("SOVEREIGNT"="drzava")),
+zemljevid.medalje.preb <- ggplot() + geom_polygon(data = left_join(zemljevid, medalje.na.preb, by=c("SOVEREIGNT"="drzava")),
                         aes(x=long, y=lat, group=group, fill=factor(skupina)), colour="black", size=0.1) +
   labs(x="", y="", fill="Skupina") +
   ggtitle("Število medalj na prebivalca po skupinah") +

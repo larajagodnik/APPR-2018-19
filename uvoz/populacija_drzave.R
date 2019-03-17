@@ -1,5 +1,5 @@
 # Uvoz populacije
-uvozi.populacija <- read_csv("podatki_databank/populacija.csv",
+uvozi.populacija <- read_csv("podatki/populacija.csv",
                            #  locale = locale(encoding = "UTF-8"),
                              col_names = TRUE,
                              n_max = 217,
@@ -47,3 +47,8 @@ populacija <- rbind(populacija, list("Soviet Union", 293000000))
 populacija <- rbind(populacija, list("West Germany", 63254000))
 populacija <- rbind(populacija, list("East Germany", 16111000))
 
+
+#====================================================
+# uvoz csv države s samo eno koordinato 
+drzave.koordinate <- read.csv("podatki/drzave.csv", stringsAsFactors = F)
+names(drzave.koordinate)[13] <- paste("COUNTRY")

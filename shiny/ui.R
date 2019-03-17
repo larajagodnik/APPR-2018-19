@@ -2,16 +2,26 @@ library(shiny)
 
 shinyUI(fluidPage(
   
-  titlePanel("Število držav"),
+  titlePanel("Graf rezultatov in zemljevid"),
   
   tabsetPanel(
-    tabPanel("Število medalj",
+    tabPanel("Graf",
+             sidebarPanel(
+               
+               uiOutput("spol.graf"),
+               uiOutput("tip"),
+               uiOutput("disciplina.graf")),
+             mainPanel(plotOutput("graf.sprememba.rezultata"))),
+    tabPanel("Zemljevid",
              sidebarPanel(
                
                uiOutput("spol"),
-               uiOutput("disciplina")
-             ),
-             
-             mainPanel(plotOutput("graf_react")))
+               uiOutput("leto"),
+               uiOutput("disciplina")),
+             leafletOutput("mymap",height = 1000))
+    
+    
+    
   )
+  
 ))
