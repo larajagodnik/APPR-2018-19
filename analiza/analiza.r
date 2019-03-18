@@ -166,5 +166,5 @@ graf.regresija <- ggplot(data = sprint %>% filter(POS==1), mapping = aes(x=leto,
 #=========================================================================================
 # podatki za shiny
 
-sample.data <- merge(x = drzave.koordinate, y = sprint, by = "COUNTRY", all.x = TRUE) %>% arrange(leto)
-sample.data <- sample.data[!is.na(sample.data$ATHLETE), ]
+sample.data <- merge(x = drzave.koordinate, y = sprint, by = "COUNTRY", all.x = TRUE)
+sample.data <- sample.data[!is.na(sample.data$ATHLETE), ] %>% arrange(leto)

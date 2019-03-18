@@ -2,7 +2,7 @@ library(shiny)
 
 shinyUI(fluidPage(
   
-  titlePanel("Graf rezultatov in zemljevid"),
+  titlePanel("Rezultati svetovnih prvenstev"),
   
   tabsetPanel(
     tabPanel("Graf",
@@ -11,14 +11,18 @@ shinyUI(fluidPage(
                uiOutput("spol.graf"),
                uiOutput("tip"),
                uiOutput("disciplina.graf")),
-             mainPanel(plotOutput("graf.sprememba.rezultata"))),
+             mainPanel(plotOutput("graf.sprememba.rezultata", height = 600, width = 600))),
+    
     tabPanel("Zemljevid",
              sidebarPanel(
-               
-               uiOutput("spol"),
-               uiOutput("leto"),
+               uiOutput("spol")),
+             
+             sidebarPanel(  
+               uiOutput("leto")),
+             
+             sidebarPanel(
                uiOutput("disciplina")),
-             leafletOutput("mymap",height = 1000))
+             leafletOutput("mymap", height = 500))
     
     
     

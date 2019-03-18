@@ -20,9 +20,10 @@ graf.medalje <- ggplot(data = medalje %>% filter(stevilo>=8), mapping = aes(x=re
   theme(axis.text.x = element_text(angle = 90, size = 8))
 
 #graf povprecnega stevila prebivalcev
-graf.prebivalstvo <- ggplot(data = populacija %>% filter(prebivalstvo>=60000000),
+populacija$prebivalstvo <- round(populacija$prebivalstvo / 1000000, 2)
+graf.prebivalstvo <- ggplot(data = populacija %>% filter(prebivalstvo>=60),
                             aes(x=reorder(drzava, -prebivalstvo), y=prebivalstvo)) +
-  labs(x="Država", y="Število prebivalcev") +
+  labs(x="Država", y="Število prebivalcev v milijonih") +
   ggtitle("Prebivalstvo") +
   geom_bar(stat = "identity") +
   theme(axis.text.x = element_text(angle = 90, size = 8))
