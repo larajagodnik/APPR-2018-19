@@ -11,7 +11,7 @@ shinyUI(fluidPage(
                uiOutput("spol.graf"),
                uiOutput("tip"),
                uiOutput("disciplina.graf")),
-             mainPanel(plotOutput("graf.sprememba.rezultata", height = 600, width = 570))),
+             mainPanel(plotOutput("graf.sprememba.rezultata", height = 600, width=570))),
     
     tabPanel("Zemljevid",
              sidebarPanel(
