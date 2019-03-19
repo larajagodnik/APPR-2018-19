@@ -18,7 +18,7 @@ shinyUI(fluidPage(
              
              sidebarPanel(uiOutput("spol.graf")),
              
-             mainPanel(plotOutput("graf.sprememba.rezultata", height = 500, width=500))),
+             mainPanel(plotOutput("graf.sprememba.rezultata"))),
     
     tabPanel("Iz kje prihajajo filanisti šprinterskih disciplin ",
              sidebarPanel(
