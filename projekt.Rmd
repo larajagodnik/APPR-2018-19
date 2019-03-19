@@ -27,7 +27,7 @@ source("lib/rstudio.r", encoding="UTF-8")
 # Izbira teme
 
 Za temo projektne naloge sem izbrala svetovna prvenstva iz atletike.
-V projektu si bom najprej ogledala, kako uspešne so države po osvojenih medaljah. Pri tem bom skušala ugotoviti ali večje število prebivalcev v državi pomeni tudi večjo uspešnost na svetovnih prvenstvih. Sledila bo analiza spreminjanja rezultatov skozi čas, kjer se bom omejila na časovno obdobje od leta 2005, ko so se discipline zadnjič spremenile, do leta 2017. Nato si bom podrobneje pogledala šprinterske discipline, kjer bom poleg rezultatov od leta 1999 do 2018 opazovala tudi reakcijske čase in poskušala ugotoviti če obstaja povezava med reakcijskim časom in disciplino.
+V projektu si bom najprej ogledala, kako uspešne so države po osvojenih medaljah. Pri tem bom skušala ugotoviti ali večje število prebivalcev v državi pomeni tudi večjo uspešnost na svetovnih prvenstvih. Sledila bo analiza spreminjanja rezultatov skozi čas, kjer se bom omejila na časovno obdobje od leta 2005, ko so se discipline zadnjič spremenile, do leta 2017. Nato si bom podrobneje pogledala šprinterske discipline, kjer bom poleg rezultatov od leta 1999 do 2017 opazovala tudi reakcijske čase in poskušala ugotoviti, ali obstaja povezava med reakcijskim časom in disciplino.
 
 ![](slike/IAAF.jpg)
 
@@ -100,26 +100,27 @@ Spodnji graf prikazuje število medalj posamezne države glede na lesk. V grafu 
 graf.medalje
 ```
 
-Iz grafa lahko razberemo, da so na prvem mestu prepričljivo Združene države Amerike. Imajo namreč več kot dvakrat več srebrnih in zlatih medalj kot Rusija na drugem mestu, prav tako imajo prepričljivo največ tudi bronastih. Zdi se, da so na šrvih mestih države z zelo veliko prebivalci, zato si oglejmo še graf, ki prikazuje države in njihovo populacijo, če je ta večja kot 60 milijonov.
+Iz grafa lahko razberemo, da so na prvem mestu prepričljivo Združene države Amerike. Imajo namreč več kot dvakrat več srebrnih in zlatih medalj kot Rusija na drugem mestu, prav tako imajo prepričljivo največ tudi bronastih. Zdi se, da so na prvih mestih države z zelo velikim številom prebivalcev, zato si oglejmo še graf, ki prikazuje države in njihovo populacijo, če je ta večja kot 60 milijonov.
 
 ```{r graf.prebivalstvo, echo=FALSE, fig.align='center', fig.cap='Graf 2'}
 graf.prebivalstvo
 ```
 
-Ob ogledu obeh zgornjih grafov lahko opazimo, da se kar nekaj držav ujema. To so Kitajska, bivša Sovjetska zveza, ZDA, Rusija, Nemčija, Filipini, Etiopija, Francija in Velika Britanija. Dejstvo, da so na prvih mestih po številu medalj ravno države kot so ZDA, Rusija, Kenija, Nemčija in ostale velike države torej ne preseneča. Po številu medalj med najuspešnejpe sodijo velike države. Mednje pa so se vmešale tudi manjše, kot na primer Jamajka, ki je na visokem petem mestu, zato bi bilo bolj smiselno pogledati, koliko medalj je osvojila posamezna država na prebivalca. Za lažjo predstavo, sem to predstavila v zemljevidu. 
+Ob ogledu obeh zgornjih grafov lahko opazimo, da se kar nekaj držav ujema. To so Kitajska, bivša Sovjetska zveza, ZDA, Rusija, Nemčija, Filipini, Etiopija, Francija in Velika Britanija. Dejstvo, da so na prvih mestih po številu medalj ravno države kot so ZDA, Rusija, Kenija, Nemčija in ostale velike države torej ne preseneča. Po številu medalj med najuspešnejše sodijo velike države. Mednje pa so se vmešale tudi manjše, kot na primer Jamajka, ki je na visokem petem mestu, zato bi bilo bolj smiselno pogledati, koliko medalj je osvojila posamezna država na prebivalca. Za lažjo predstavo, sem to predstavila v zemljevidu. 
 Spodnji zemljevid prikazuje skupno število vseh medalj. Države z najmanj medaljami so obarvane temno, tiste z največ medaljami pa svetlo modro.
 
 ```{r zemljevid.medalje, echo=FALSE, fig.align='center', fig.cap='Zemljevid 1'}
 zemljevid.medalje
 ```
 
-Združene države Amerike so, po pričakovanju, zaradi velike prednosti po številu medalj pred drugimi edine pobarvane svetlo, do Rusije in ostalih držav pa je kar precejšnji barvni preskok. Ta zemljevid primerjajmo z zemjevidom, ki prikazuje število medalj na prebivalca. Zaradiboljše preglednosti, sem sržave sem razdelila v deset enakovrednih skupin. S temno modro so obarvane države, ki imajo najmanj medalj na prebivalca in s svetlo tiste, ki jih imajo največ.
+Združene države Amerike so, po pričakovanju, zaradi velike prednosti po številu medalj pred drugimi edine pobarvane svetlo, do Rusije in ostalih držav pa je kar precejšnji barvni preskok. Ta zemljevid primerjajmo z zemjevidom, ki prikazuje število medalj na prebivalca. Zaradi boljše preglednosti, sem države razdelila v deset enakovrednih skupin. S temno modro so obarvane države, ki imajo najmanj medalj na prebivalca in s svetlo tiste, ki jih imajo največ.
 
 ```{r zemljevid.medalje.preb, echo=FALSE, fig.align='center', fig.cap='Zemljevid 2'}
 zemljevid.medalje.preb
 ```
 
-Opazimo, da tu ZDA niso več v prvi skupini ampak približno v povprečju, kjer so v četrti in peti skupini države, ki imajo največje skupno število medalj in veliko število prebvalcev. To so poleg ZDA še na primer Rusija, Francija, Velika Britanija in Nemčija. V prvo in drugo skupino, kjer so državez največ medaljami da prebivalca pa sodijo Karibske države med katerimi je najvišje Jamajka, Surinam, Finska, Estonija in Belorusija v Evropi, Kenija v Afriki in ostale manjše države.
+Opazimo, da tu ZDA niso več v prvi skupini ampak približno v povprečju, kjer so v četrti in peti skupini države, ki imajo največje skupno število medalj in veliko število prebvalcev. To so poleg ZDA še na primer Rusija, Francija, Velika Britanija in Nemčija. V prvo in drugo skupino, kjer so države z največ medaljami da prebivalca, pa sodijo Karibske države med katerimi je najvišje Jamajka, Surinam, Finska, Estonija in Belorusija v Evropi, Kenija v Afriki in ostale manjše države. 
+
 Velike države so torej res med najuspešnejšimi po številu zbranih medalj, ne pa tudi po številu medalj na prebivalca. Sem bi lahko, z opombo da to velja le za nekoliko bolj razvite države, uvrstili tiste, kjer prevladuje temnopolto prebivalstvo.
 
 ***
@@ -136,13 +137,14 @@ Spodnji graf prikazuje, kako so se razvijale tekaške discipline. Rezultat prvou
 graf.Ztek.mark
 ```
 
-Najprej sem si ogledala, kako so se skozi čas spreminjali rezultati tekaških disciplin pri ženskah. Opazimo lahko, da se je rezultat najmanj spreminjal pri 400 m in 400 m ovire. V splošnem lahko, z nekaj odstopanji, rečemo, da se je rezultat od leta 2005 do 2017 izboljšal pri teku na dolge proge in hoji, nekoliko slabši glede na leto 2005 pa je pri šprinterskih disciplinah. Velik vpliv na rezultat pri šprintu torej v disciplinah 100, 200 in 400 m ima reakcijski čas, zato si v naslednjih dveh grafih oglejmo, kako se je skozi čas spreminjal reakcijsi čas prvouvrščenega tekmovalca, posebej za moške in ženske.
+Ogledala sem si, kako so se skozi čas spreminjali rezultati tekaških disciplin pri ženskah. Opazimo lahko, da se je rezultat najmanj spreminjal v teku na 400 m in 400 m ovire. V splošnem lahko, z nekaj odstopanji, rečemo, da se je rezultat od leta 2005 do 2017 izboljšal pri tekih na dolge proge in hitri hoji, nekoliko slabši glede na leto 2005 pa je pri šprinterskih disciplinah. Velik vpliv na rezultat pri šprintu torej v disciplinah 100, 200 in 400 m ima reakcijski čas, zato si v naslednjih dveh grafih oglejmo, kako se je ta spreminjal skozi čas pri prvouvrščenem tekmovalcu, posebej za moške in ženske.
 
 ```{r graf.react, echo=FALSE, fig.align='center', fig.cap='Graf 4'}
 graf.react
 ```
 
-Po prčakovanju je v splošnem reakcijski čas najboljši v teku na 100 m in najslabši v teku na 400 m, kjer je nihal skoraj enakomerno. Opazimo lahko, da reakcijski čas na rezultat ne vpliva veliko, saj boljši reakcijski čas ne zadostuje za boljši rezultat.V teku na 100 in 200 m, pa v nekaterih letih res boljši reakcijski čas pomeni tudi boljši rezultat a to ne velja vedno. Podoben trend spreminjanja reakcijskega časa je tudi pri moških, zato si bom to pogledala malo podrobneje.
+Po pričakovanju je v splošnem reakcijski čas najboljši v teku na 100 m in najslabši v teku na 400 m, kjer je nihal skoraj enakomerno. Opazimo lahko, da v teku na 400 m reakcijski čas na rezultat ne vpliva veliko, saj boljši reakcijski čas ne zadostuje za boljši rezultat. Nasprotno velja za teka na 100 in 200 m, kjer v nekaterih letih res boljši reakcijski čas pomeni tudi boljši rezultat, a to ne velja vedno. Podoben trend spreminjanja reakcijskega časa je tudi pri moških, zato si bom to pogledala malo podrobneje.
+
 Spodnji grafi prikazujejo reakcijske čase prvih treh uvrščenih v posamezni disciplini, posebej za moške in ženske. Črna črta predstavlja najboljše prileganje vsem reakcijskim časom.
 
 ```{r graf.sprint.react, echo=FALSE, fig.align='center', fig.cap='Graf 5'}
@@ -150,14 +152,14 @@ graf.sprint.react
 ```
 
 Najprej opazimo, da imajo moški v splošnem boljše reakcijske čase kot ženske, časi prvih treh pa so pri moških tudi precej bolj izenačeni in z izjemo najdaljše discipline ni večjih odstopanj. Kot sem pričakovala, so reakcijski časi najboljši v teku na 100 m in najslabši v najdaljši šprinterski disciplini.
-Opazimo lahko, da se je reakcijski čas z izjemo zadnjih nekaj let podaljševal, trend spreminjanja pa je pri vseh disciplinah podoben. To lahko pripišemo spremembi atletskih pravil. Do leta 2003 je bil namreč vsak tekmovalec diskvalificiran šele po drugem prehitrem startu. V letu 2003, so se reakcijski časi podaljšali, saj je bil ob ponovitvi starta diskvalificiran vsak, ki je prehitro startal, ne glede na to, če je bil to njegov prvi ali drugi napačen start. To pravilo je veljalo do vključno leta 2009. Po tem letu je spet opaziti podaljšanje reakcijskega časa. Tokrat je ta sprememba bolj opazna, saj je bila tudi  zaostritev hujša, tekmovalec je bil namreč diskvalificiran že ob prvem prehitrem startu. V zadnjih nekaj letih je spet prišlo do izboljšanja, saj so se tekmovalci verjetno privadili na ostrejše pogoje na tekmovanjih.
+Opazimo lahko, da se je reakcijski čas, z izjemo zadnjih nekaj let, podaljševal, trend spreminjanja pa je pri vseh disciplinah podoben. To lahko pripišemo spremembi atletskih pravil. Do leta 2003 je bil namreč vsak tekmovalec diskvalificiran šele po drugem prehitrem startu. V letu 2003, so se reakcijski časi podaljšali, saj je bil ob ponovitvi starta diskvalificiran vsak, ki je prehitro startal, ne glede na to, če je bil to njegov prvi ali drugi napačen start. To pravilo je veljalo do vključno leta 2009. Po tem letu je spet opaziti podaljšanje reakcijskega časa. Tokrat je ta sprememba bolj opazna, saj je bila tudi  zaostritev hujša, tekmovalec je bil namreč diskvalificiran že ob prvem prehitrem startu. V zadnjih nekaj letih je spet prišlo do izboljšanja, saj so se tekmovalci verjetno privadili na ostrejše pogoje na tekmovanjih.
 
 
 ```{r graf.regresija, echo=FALSE, fig.align='center', fig.cap='Graf 6'}
 graf.regresija
 ```
 
-Rezultati v šprinteskih disciplinah so se skozi čas precej spreminjali in jih težko opišemo z linearno funkcijo. Napoved kakšen bo rezultat v prihodnosti je zato precej netočena, lahko pa papričakujemo do bo rezultat vsaj v intervalu zaupanja, kjer bo z verjetnostjo 95 %. Nam pa regresijske funkcije pokažejo, da je trend spreminjanja za posamezno disciplino podoben za ženske in moške. Največji naklon ima funkcija pri teku na 200 m, kjer bi zato lahko v prihodnosti pričakovali večje izboljšanje rezultata kot v teku na 100 in 400 m.
+Rezultati v šprinteskih disciplinah so se skozi čas precej spreminjali in jih težko opišemo z linearno funkcijo. Napoved, kakšen bo rezultat v prihodnosti, je zato precej netočna, lahko pa pričakujemo, da bo rezultat vsaj v intervalu zaupanja, kjer bo z verjetnostjo 95 %. Nam pa regresijske funkcije pokažejo, da je trend spreminjanja za posamezno disciplino podoben za ženske in moške. Največji naklon ima funkcija pri teku na 200 m, kjer bi zato lahko v prihodnosti pričakovali večje izboljšanje rezultata kot v teku na 100 in 400 m.
 
 ***
 # Shiny
@@ -167,5 +169,6 @@ Za konec sem naredila še aplikacijo Shiny.
 ```{r shiny, echo=FALSE}
 shinyAppDir("shiny", options=list(width="100%", height=800))
 ```
-V enem od zgornjih grafov, sem se osredotočila na spreminjanje rezultatov tekaških disciplin pri ženskah, glede na leto 2005. V Prvem zavihku so prav tako predstavljeni ti rezultati, a za oba spola in vse discipline. Posebnih podobnosti v morebitnem enakem razvoju disciplin pri moških in ženskah ni. Opazimo pa lahko razliko med tekaškimi in tehničnimi disciplinami. Pri obeh tipih so res discipline ki so se razvile in tiste ki so nazadovale glede na leto 2005, a je pri tekaških disciplinah opazen največji preskok v letu 2007. Kasneje so bila razna nihanja, posebnih izboljšanj rezultatov pa ni bilo. Nasprotno, se tehnične discipline razvijajo in je pri večini izboljšanje nastopilo v zadnjih letih.
-V drugem zavihku sem naredila zemljevid, ki prikazuje iz kje so prihajali finalisti šprinterskih disciplin 100, 200 in 400 m. Tako kot je zgornja analiza o številu medalj pokazala da so imajo največ medalj združene države amerike, po številu medalj na prebivalca pa so v ospredju karibske države. Tudi ko govorimo o državah, kjer so najhitrejši atleti so v ospredju te države, poleg njih pa še Velika Britanija, Francija in Rusija. V večini primerov gre torej za države, kjer živi temnopolto prebivalstvo, kar tudi ne preseneča.
+V enem od zgornjih grafov, sem se osredotočila na spreminjanje rezultatov tekaških disciplin pri ženskah, glede na leto 2005. V Prvem zavihku so prav tako predstavljeni ti rezultati, a za oba spola in vse discipline. Posebnih podobnosti v morebitnem enakem razvoju disciplin pri moških in ženskah ni. Opazna je razlika med tekaškimi in tehničnimi disciplinami. Pri obeh tipih so res discipline, ki so se razvile in tiste, ki so nazadovale glede na leto 2005, a je pri tekaških disciplinah opazen največji preskok v letu 2007. Kasneje so bila razna nihanja, posebnih izboljšanj rezultatov pa ni bilo. Nasprotno, so tehnične discipline v fazi razvoja in je pri večini izboljšanje nastopilo v zadnjih letih.
+
+V drugem zavihku sem naredila zemljevid, ki prikazuje iz kje so prihajali finalisti šprinterskih disciplin 100, 200 in 400 m. Tako kot je zgornja analiza o številu vseh medalj pokazala, da imajo največ medalj Združene države Amerike, po številu medalj na prebivalca pa so v ospredju karibske države, so ravno te države tudi tiste, kjer so najhitrejši atleti. Poleg naštetih pa so v ospredju še Velika Britanija, Francija in Rusija. V večini primerov gre torej za države, kjer živi temnopolto prebivalstvo, kar tudi ne preseneča.
