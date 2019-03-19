@@ -160,10 +160,12 @@ graf.regresija
 Rezultati v šprinteskih disciplinah so se skozi čas precej spreminjali in jih težko opišemo z linearno funkcijo. Napoved kakšen bo rezultat v prihodnosti je zato precej netočena, lahko pa papričakujemo do bo rezultat vsaj v intervalu zaupanja, kjer bo z verjetnostjo 95 %. Nam pa regresijske funkcije pokažejo, da je trend spreminjanja za posamezno disciplino podoben za ženske in moške. Največji naklon ima funkcija pri teku na 200 m, kjer bi zato lahko v prihodnosti pričakovali večje izboljšanje rezultata kot v teku na 100 in 400 m.
 
 ***
+# Shiny
+
+Za konec sem naredila še aplikacijo Shiny.
 
 ```{r shiny, echo=FALSE}
-shinyAppDir("shiny", options=list(width="100%", height=750))
+shinyAppDir("shiny", options=list(width="100%", height=800))
 ```
-Za konec sem naredila še aplikacijo Shiny.
 V enem od zgornjih grafov, sem se osredotočila na spreminjanje rezultatov tekaških disciplin pri ženskah, glede na leto 2005. V Prvem zavihku so prav tako predstavljeni ti rezultati, a za oba spola in vse discipline. Posebnih podobnosti v morebitnem enakem razvoju disciplin pri moških in ženskah ni. Opazimo pa lahko razliko med tekaškimi in tehničnimi disciplinami. Pri obeh tipih so res discipline ki so se razvile in tiste ki so nazadovale glede na leto 2005, a je pri tekaških disciplinah opazen največji preskok v letu 2007. Kasneje so bila razna nihanja, posebnih izboljšanj rezultatov pa ni bilo. Nasprotno, se tehnične discipline razvijajo in je pri večini izboljšanje nastopilo v zadnjih letih.
 V drugem zavihku sem naredila zemljevid, ki prikazuje iz kje so prihajali finalisti šprinterskih disciplin 100, 200 in 400 m. Tako kot je zgornja analiza o številu medalj pokazala da so imajo največ medalj združene države amerike, po številu medalj na prebivalca pa so v ospredju karibske države. Tudi ko govorimo o državah, kjer so najhitrejši atleti so v ospredju te države, poleg njih pa še Velika Britanija, Francija in Rusija. V večini primerov gre torej za države, kjer živi temnopolto prebivalstvo, kar tudi ne preseneča.
