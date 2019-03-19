@@ -3,7 +3,7 @@ library(shiny)
 shinyServer(function(input, output) {
   
   output$mymap <- renderLeaflet({
-    
+
     zemljevid.datas <- sample.data
     if (!is.null(input$spol) && input$spol %in% sample.data$spol) {
       zemljevid.datas <- sample.data %>% filter(spol==input$spol)
@@ -41,9 +41,9 @@ shinyServer(function(input, output) {
     if (!is.null(input$tip) && input$tip=="Tehnicne") {
       t <- t %>% filter(disciplina %in% levels(factor(rezultati.tehnicne$disciplina)))
     }
-    if (!is.null(input$disciplina.graf) && input$disciplina.graf %in% levels(factor(rezultati$disciplina))) {
-      t <- t %>% filter(disciplina==input$disciplina.graf)
-    }
+    # if (!is.null(input$disciplina.graf) && input$disciplina.graf %in% levels(factor(rezultati$disciplina))) {
+    #   t <- t %>% filter(disciplina==input$disciplina.graf)
+    # }
     if (!is.null(input$spol.graf) && input$spol.graf %in% levels(factor(rezultati$spol))) {
       t <- t %>% filter(spol==input$spol.graf)
     }
@@ -74,10 +74,10 @@ shinyServer(function(input, output) {
     selectInput("spol.graf", label="Izberi spol",
                 choices=levels(factor(rezultati$spol)))
   )
-  output$disciplina.graf <- renderUI(
-    selectInput("disciplina.graf", label="Izberi disciplino",
-                choices=c("Vse", levels(factor(rezultati$disciplina))))
-  )
+  # output$disciplina.graf <- renderUI(
+  #   selectInput("disciplina.graf", label="Izberi disciplino",
+  #               choices=c("Vse", levels(factor(rezultati$disciplina))))
+  # )
   output$tip <- renderUI(
     selectInput("tip", label="Izberi tip",
                 choices=c("Vse", levels(factor(rezultati$kategorija))))
