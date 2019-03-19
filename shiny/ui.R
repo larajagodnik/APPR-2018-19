@@ -39,12 +39,12 @@ shinyUI(fluidPage(
     tabPanel("Graf",
              sidebarPanel(
                
+               uiOutput("spol.graf"),
                checkboxGroupInput(inputId="discipline", label = "Izberi disciplino:",
                                   choiceNames=c(unique(rezultati$disciplina)),
                                   choiceValues =c(unique(rezultati$disciplina)))
              ),
              
-             uiOutput("spol.graf"),
              mainPanel(plotOutput("graf.sprememba.rezultata", height = 500, width=500))),
     
     tabPanel("Zemljevid",
