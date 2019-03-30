@@ -1,6 +1,5 @@
 
-#sl <- locale("sl", decimal_mark=",", grouping_mark=".")
-# Funkcija, ki uvozi rezultate iz finala svetovnih prvenstevod leta 2005 naprej za discipline 100 m , 200 m
+# Funkcija, ki uvozi rezultate iz finala svetovnih prvenstev od leta 2005 naprej za discipline 100 m , 200 m
 # in 400 m za moške in ženske
 # od leta 1999 kej je bilo takrat uvedeno merjenje reakcijskega časa
 
@@ -13,7 +12,6 @@ uvozi.rezultati <- function(link, leto, disciplina, spol) {
       Encoding(tabela[[j]]) <- "UTF-8"
     }
   }
-  #tabela$COUNTRY <- gsub("NGR", "NGE", tabela$drzava)
   return(tabela)
 }
 

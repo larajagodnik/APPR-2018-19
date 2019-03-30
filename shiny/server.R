@@ -1,6 +1,6 @@
 library(shiny)
 
-shinyServer(function(input, output,session) {
+shinyServer(function(input, output, session) {
   
   output$mymap <- renderLeaflet({
     
@@ -19,40 +19,26 @@ shinyServer(function(input, output,session) {
       addTiles() %>%
       addMarkers(lng = zemljevid.datas$Longitude,
                  lat = zemljevid.datas$Latitude ,
-                 popup = paste("Tekmovalec:", zemljevid.datas$ATHLETE ,"<br>",
-                               "Država:", zemljevid.datas$admin, "<br>",
-                               "Leto:", zemljevid.datas$leto,"<br>",
-                               "Disciplina:", zemljevid.datas$disciplina,"<br>",
-                               "Uvrstitev:", zemljevid.datas$POS,"<br>" ,
-                               "Rezultat:", zemljevid.datas$MARK,"<br>"),
+                 popup = paste("Tekmovalec:", zemljevid.datas$ATHLETE, br(),
+                               "Država:", zemljevid.datas$admin, br(),
+                               "Leto:", zemljevid.datas$leto, br(),
+                               "Disciplina:", zemljevid.datas$disciplina, br(),
+                               "Uvrstitev:", zemljevid.datas$POS, br(),
+                               "Rezultat:", zemljevid.datas$MARK, br()),
                  clusterOptions = markerClusterOptions(freezeAtZoom=4))
     
     
   })
   
-  
-  
+
   
   
   output$graf.sprememba.rezultata <- renderPlot({
 
-    t <- rezultati %>% filter(disciplina %in% input$discipline_tehnicne | rezultati$disciplina %in% input$discipline_tekaske)
+    t <- rezultati %>% filter(disciplina %in% input$discipline.tehnicne | rezultati$disciplina %in% input$discipline.tekaske)
     
-    if (!is.null(input$tip) && input$tip=="Tehnicne") {
-      t <- t %>% filter(disciplina %in% levels(factor(rezultati.tehnicne$disciplina)))
-    }
-    # if (!is.null(input$disciplina.graf) && input$disciplina.graf %in% levels(factor(rezultati$disciplina))) {
-    #   t <- t %>% filter(disciplina==input$disciplina.graf)
-    # }
     if (!is.null(input$spol.graf) && input$spol.graf %in% levels(factor(rezultati$spol))) {
       t <- t %>% filter(spol==input$spol.graf)
-    }
-    if(!is.null(input$tip) && input$tip=="Tekaske"){
-      t <- t %>% filter(disciplina %in% levels(factor(rezultati.tekaske$disciplina)))
-    }
-    if(!is.null(input$discipline) && input$discipline %in% levels(factor(rezultati$disciplina))){
-      print(input$discipline)
-      t <- t %>% filter(disciplina %in% levels(factor(rezultati$disciplina)))
     }
     ggplot(data=t, mapping = aes(x=factor(leto), y=sprememba, group=disciplina, color=disciplina)) +
       geom_line(size=2) +
@@ -77,15 +63,7 @@ shinyServer(function(input, output,session) {
     selectInput("spol.graf", label="Izberi spol",
                 choices=levels(factor(rezultati$spol)))
   )
-  # output$disciplina.graf <- renderUI(
-  #   selectInput("disciplina.graf", label="Izberi disciplino",
-  #               choices=c("Vse", levels(factor(rezultati$disciplina))))
-  # )
-  output$tip <- renderUI(
-    selectInput("tip", label="Izberi tip",
-                choices=c("Vse", levels(factor(rezultati$kategorija))))
-  )
-  
+ 
   
   
 })

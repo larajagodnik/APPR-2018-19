@@ -10,8 +10,8 @@ library(readr)
 library(dplyr)
 library(ggplot2)
 library(tidyr)
-library(lubridate)
 library(leaflet)
+library(lubridate)
 
 
 # Uvozimo funkcije za pobiranje in uvoz zemljevida.

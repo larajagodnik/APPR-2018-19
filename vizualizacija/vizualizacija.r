@@ -59,28 +59,10 @@ medalje.na.preb$skupina <- decile(medalje.na.preb$medalje_na_preb, decreasing = 
 barva <- colorRampPalette(c("#71bfff", "#00132f"))
 
 zemljevid.medalje.preb <- ggplot() + geom_polygon(data = left_join(zemljevid, medalje.na.preb, by=c("SOVEREIGNT"="drzava")),
-                        aes(x=long, y=lat, group=group, fill=factor(skupina)), colour="black", size=0.1) +
+                                                  aes(x=long, y=lat, group=group, fill=factor(skupina)), colour="black", size=0.1) +
   labs(x="", y="", fill="Skupina") +
   ggtitle("Število medalj na prebivalca po skupinah") +
   scale_fill_manual(values = barva(10), na.value = "grey50")
-
-
-#
-# cluster poskus
-#
-
-# medalje.na.preb1 <- medalje.na.preb[4]
-# d <- dist(medalje.na.preb1, method = "euclidean")
-# fit <- hclust(d, method="ward.D") 
-# groups <- cutree(fit, k=5)
-# cluster5 <- mutate(medalje.na.preb, groups)
-# ggplot() + geom_polygon(data=left_join(zemljevid, cluster5, by=c("SOVEREIGNT"="drzava")),
-#                         aes(x=long, y=lat, group=group,
-#                             fill=factor(groups)))
-
-
-
-
 
 
 

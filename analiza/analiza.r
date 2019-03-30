@@ -1,8 +1,5 @@
 # 4. faza: Analiza podatkov
-library(scales)
 library(StatMeasures)
-library(rowr)
-library(forcats)
 
 #==============================================================================================================
 #razvoj tekaskih disciplin

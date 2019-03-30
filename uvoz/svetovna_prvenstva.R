@@ -88,7 +88,7 @@ rezultati.tekaske$rezultat <- period_to_seconds(hms(rezultati.tekaske$rezultat))
 
 tehnicne <- unique(c(rezultati.moski.tehnicne[[1]], rezultati.zenske.tehnicne[[1]]))
 rezultati.tehnicne <- vsi.rezultati %>% filter(disciplina %in% tehnicne)
-rezultati.tehnicne$rezultat <- gsub("\\,", "\\.", rezultati.tehnicne$rezultat)
+rezultati.tehnicne$rezultat <- gsub("\\,", "\\.", rezultati.tehnicne$rezultat) # vejice zamenja s pikami
 rezultati.tehnicne <- rezultati.tehnicne %>% mutate(rezultat=parse_number(as.character(rezultat))) %>%
   na.omit()
 

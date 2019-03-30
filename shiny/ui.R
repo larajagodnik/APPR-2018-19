@@ -8,11 +8,11 @@ shinyUI(fluidPage(
     tabPanel("Graf spremembe rezultatov glede na leto 2005",
              sidebarPanel(
                
-               checkboxGroupInput(inputId="discipline_tehnicne", label = "Izberi tehnično disciplino:",
+               checkboxGroupInput(inputId="discipline.tehnicne", label = "Izberi tehnično disciplino:",
                                   choiceNames=c(unique(rezultati.tehnicne$disciplina)),
                                   choiceValues =c(unique(rezultati.tehnicne$disciplina))),
                
-               checkboxGroupInput(inputId="discipline_tekaske", label = "Izberi tekaško disciplino:",
+               checkboxGroupInput(inputId="discipline.tekaske", label = "Izberi tekaško disciplino:",
                                   choiceNames=c(unique(rezultati.tekaske$disciplina)),
                                   choiceValues =c(unique(rezultati.tekaske$disciplina)), selected  ="100 m")),
              
